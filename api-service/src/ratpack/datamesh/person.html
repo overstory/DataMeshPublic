@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Person {uri}</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/custom.css" rel="stylesheet">
+    <link href="./css/prettify.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">OverStory DataMesh</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/datamesh/api">API</a></li>
+                <li><a href="/datamesh/records">Records</a></li>
+                <li><a href="/datamesh/rdf/record/type">Types</a></li>
+                <li><a href="/datamesh/rdf/prefix">Prefixes</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <div class="container readable">
+
+
+        <h2>Marcin Rachocki</h2>
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td class="col-sm-1">Uri</td>
+                    <td class="col-sm-4"><a href="/datamesh/record/id/urn:overstory.co.uk:id:person:marcin_rachocki">urn:overstory.co.uk:id:person:marcin_rachocki</a></td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>foaf:Person</td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>Marcin</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>Rachocki</td>
+                </tr>
+                <tr>
+                    <td>E-mail</td>
+                    <td>marcin@overstory.co.uk</td>
+                </tr>
+                <tr>
+                    <td>Home Phone</td>
+                    <td>+44 2088885190</td>
+                </tr>
+                <tr>
+                    <td>Mobile Phone</td>
+                    <td>+44 7512255029</td>
+                </tr>
+                <tr>
+                    <td>LinkedIn</td>
+                    <td><a href="http://uk.linkedin.com/pub/marcin-rachocki/64/833/7">http://uk.linkedin.com/pub/marcin-rachocki/64/833/7</a></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><a href="/datamesh/record/id/urn:overstory.co.uk:id:address:38">urn:overstory.co.uk:id:address:38</a></td>
+                </tr>
+                <tr>
+                    <td>Organization</td>
+                    <td><a href="/datamesh/record/id/urn:overstory.co.uk:id:organization:overstory_llp">urn:overstory.co.uk:id:organization:overstory_llp</a></td>
+                </tr>
+                <tr>
+                    <td>Based At</td>
+                    <td><a href="/datamesh/record/id/urn:overstory.co.uk:id:site:32">urn:overstory.co.uk:id:site:32</a></td>
+                </tr>
+                <tr>
+                    <td>Created</td>
+                    <td>2014-06-18 02:51:42</td>
+                </tr>
+                <tr>
+                    <td>Updated</td>
+                    <td>2014-06-18 02:51:42</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container action">
+            <h3>Person Action</h3>
+            <p><a href="/datamesh/record?refers-to=urn:overstory.co.uk:id:person:marcin_rachocki">Who Refers to this person?</p>
+            <p><a href="/datamesh/record?type=foaf:Person">Show other resources of the same type.</a></p>
+        </div>
+
+
+        <div class="container xml">
+        <h3>XML</h3>
+        <pre class="prettyprint lang-xml" style="font-size:80%">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;osc:person prefix="ost: http://rdf.overstory.co.uk/rdf/terms/ foaf: http://xmlns.com/foaf/0.1/ dc: http://purl.org/dc/terms/ org: http://www.w3.org/ns/org#" typeof="foaf:Person" about="urn:overstory.co.uk:id:person:marcin_rachocki" xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content" xmlns:local="http://ns.overstory.co.uk/xslt/functions/local"&gt;
+    &lt;osc:uri property="dc:identifier ost:uri"&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/osc:uri&gt;
+    &lt;osc:created&gt;2014-06-18T02:51:42.036906+01:00&lt;/osc:created&gt;
+    &lt;osc:last-updated&gt;2014-06-18T02:51:42.036906+01:00&lt;/osc:last-updated&gt;
+    &lt;osc:fname property="foaf:firstName"&gt;Marcin&lt;/osc:fname&gt;
+    &lt;osc:lname property="foaf:surname"&gt;Rachocki&lt;/osc:lname&gt;
+    &lt;osc:properties&gt;
+        &lt;osc:email property="foaf:mbox"&gt;rachockim@gmail.com&lt;/osc:email&gt;
+        &lt;osc:phone property="foaf:phone ost:homePhone"&gt;+44 2088885190&lt;/osc:phone&gt;
+        &lt;osc:phone property="foaf:phone ost:mobilePhone"&gt;+44 7512 255029&lt;/osc:phone&gt;
+        &lt;osc:linkedin property="ost:twitter"&gt;http://uk.linkedin.com/pub/marcin-rachocki/64/833/7&lt;/osc:linkedin&gt;
+        &lt;osc:based-at property="org:basedAt" resource="urn:overstory.co.uk:id:site:32"&gt;urn:overstory.co.uk:id:site:23&lt;/osc:based-at&gt;
+        &lt;osc:member-of property="org:memberOf" resource="urn:overstory.co.uk:id:organization:overstory_llp"&gt;OverStory LLP&lt;/osc:member-of&gt;
+        &lt;osc:address property="ost:address" resource="urn:overstory.co.uk:id:address:38"/&gt;
+    &lt;/osc:properties&gt;
+&lt;/osc:person&gt;</pre>
+        </div>
+
+        <div class="container xml">
+        <h3>Triples</h3>
+    <pre class="prettyprint lang-xml" style="font-size:80%">
+&lt;sem:triples xmlns:sem="http://marklogic.com/semantics"&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://www.w3.org/1999/02/22-rdf-syntax-ns#type&lt;/sem:predicate&gt;
+        &lt;sem:object&gt;http://xmlns.com/foaf/0.1/Person&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://purl.org/dc/terms/identifier&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://rdf.overstory.co.uk/rdf/terms/uri&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://xmlns.com/foaf/0.1/firstName&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;Marcin&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://xmlns.com/foaf/0.1/surname&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;Rachocki&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://xmlns.com/foaf/0.1/mbox&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;rachockim@gmail.com&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://xmlns.com/foaf/0.1/phone&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;+44 2088885190&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://rdf.overstory.co.uk/rdf/terms/homePhone&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;+44 2088885190&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://xmlns.com/foaf/0.1/phone&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;+44 7512 255029&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://rdf.overstory.co.uk/rdf/terms/mobilePhone&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;+44 7512 255029&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://rdf.overstory.co.uk/rdf/terms/twitter&lt;/sem:predicate&gt;
+        &lt;sem:object datatype="http://www.w3.org/2001/XMLSchema#string"&gt;http://uk.linkedin.com/pub/marcin-rachocki/64/833/7&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://www.w3.org/ns/org#basedAt&lt;/sem:predicate&gt;
+        &lt;sem:object&gt;urn:overstory.co.uk:id:site:32&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://www.w3.org/ns/org#memberOf&lt;/sem:predicate&gt;
+        &lt;sem:object&gt;urn:overstory.co.uk:id:organization:overstory_llp&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+    &lt;sem:triple&gt;
+        &lt;sem:subject&gt;urn:overstory.co.uk:id:person:marcin_rachocki&lt;/sem:subject&gt;
+        &lt;sem:predicate&gt;http://rdf.overstory.co.uk/rdf/terms/address&lt;/sem:predicate&gt;
+        &lt;sem:object&gt;urn:overstory.co.uk:id:address:38&lt;/sem:object&gt;
+    &lt;/sem:triple&gt;
+&lt;/sem:triples&gt;
+                       </pre>
+                           </div>
+
+    </div>
+
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/prettify.js"></script>
+<script type="text/javascript">
+
+    (function(jQuery){
+
+        jQuery( document ).ready( function() {
+
+            prettyPrint();
+
+        } );
+
+    }(jQuery))
+
+</script>
+</body>
+</html>

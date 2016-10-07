@@ -1,0 +1,430 @@
+body {
+    padding-top: 50px;
+    background: url(/web/img/os-logo.png) no-repeat bottom center fixed;
+}
+
+#sparql-result-table {
+    background-color: #ffffff;
+}
+
+#sparql-result-table table {
+    background-color: #eeeeee;
+}
+
+#sparql-result-table table th {
+    background-color: #eeeeee;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#sparql-result-table table td {
+    background-color: #ffffff;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.starter-template {
+    padding: 40px 15px;
+}
+
+.add-property {
+    margin-bottom: 5px;
+}
+
+.no-results {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.button-margins {
+    margin: 5px 5px 5px 1px;
+}
+
+button.display-xml{
+    margin-right: 3px;
+    margin-bottom:3px;
+}
+
+a.search {
+    margin-right:6px;
+}
+
+.search-record-icon {
+    margin-right:3px;
+}
+
+.search-all {
+	color:grey;
+	font-size:smaller;
+	margin-left:3px;
+	margin-right:10px;
+}
+
+.search-all:hover {
+	color:white;
+}
+
+.search-all-icon {
+	color:white;
+}
+
+i.clipboard {
+    margin-left:5px;
+    color: black;
+}
+
+i.prop-icon {
+    margin-right: 5px;
+}
+
+.btn-back {
+    background-color: #006dcc;
+    color: #ffffff;
+    background-image: -moz-linear-gradient(top, #5b5b5b, #000000);
+    background-image: -ms-linear-gradient(top, #5b5b5b, #000000);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5b5b5b), to(#000000));
+    background-image: -webkit-linear-gradient(top, #5b5b5b, #000000);
+    background-image: -o-linear-gradient(top, #5b5b5b, #000000);
+    background-image: linear-gradient(top, #5b5b5b, #000000);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#'5b5b5b, endColorstr='#'000000, GradientType=0);
+}
+
+/* Hideable */
+.xml-header > a {
+    color:black;
+}
+.xml-container {
+    height:300px;
+    background-color: #99CCFF;
+    padding:20px;
+    margin-top:10px;
+    border-bottom:5px solid #3399FF;
+}
+
+
+/* ICONS */
+
+fa-facebook-square {
+    color:black;
+}
+
+fa-linked-square {
+    color:black;
+}
+
+fa-twitter-square {
+    color:black;
+}
+
+/* Pagination */
+
+.pagination-left {
+    height: 32px;
+}
+
+.pagination-right {
+    height: 32px;
+}
+
+.pagination-entry {
+    height: 32px;
+}
+
+.pagination-info {
+	display: inline-block;
+	margin-left:5px;
+	margin-top:5px;
+}
+
+/* Navigation */
+
+.navbar-inverse{
+    border-radius:0;
+    background:rgba(0, 0, 0, .8);
+    border-bottom:rgba(255, 255, 255, 0.15);
+    min-height:50px;
+    padding-top:15px;
+    margin-bottom:0;
+}
+
+.navbar-inverse .navbar-nav > .menu-list > a.active:hover,
+
+.navbar-inverse .navbar-nav > .menu-list > a.active{
+    background:none;
+    color:white;
+    border-bottom:1px solid white;
+}
+
+.navbar-inverse .navbar-brand{
+    font-size:22px;
+    color:white;
+    padding:0 0 0 15px;
+    margin:13px 0 0 0;
+}
+
+a.menu{
+    text-decoration:none;
+    display:inline-block;
+}
+a.menu:after{
+    content:'';
+    display:block;
+    border-bottom:1px solid white;
+    width:0;
+    -webkit-transition:0.5s ease;
+    transition:0.5s ease;
+}
+a.menu:hover:after{
+    width:100%;
+}
+
+a.sparql-search{
+	color:grey;
+    text-decoration:none;
+    display:inline-block;
+}
+
+a.sparql-search:hover{
+	color:white;
+    text-decoration:none;
+    display:inline-block;
+}
+
+a.sparql-search:after{
+	color:white;
+    content:'';
+    display:block;
+    border-bottom:1px solid white;
+    width:0;
+    -webkit-transition:0.5s ease;
+    transition:0.5s ease;
+}
+a.sparql-search:hover:after{
+    width:100%;
+    color:white;
+}
+
+a.delete-prefix {
+    color:grey;
+    cursor: pointer;
+    margin-right:2px;
+}
+
+a.delete-prefix:hover{
+    color:red;
+}
+
+a.delete-triple {
+    color:grey;
+    cursor: pointer;
+    margin-right:2px;
+    margin-left:3px;
+}
+
+a.delete-triple:hover{
+    color:red;
+}
+
+a.modify-triple {
+    color:grey;
+    cursor: pointer;
+}
+
+a.modify-triple:hover{
+    color:blue;
+}
+
+a.modify-prefix {
+    color:grey;
+    cursor: pointer;
+}
+
+a.modify-prefix:hover{
+    color:blue;
+}
+
+button.add-prefix {
+    margin-right: 3px;
+    margin-bottom:3px;
+}
+
+.add-record-btn {
+    margin-right:5px;
+}
+
+.add-record-icon {
+    margin-right:3px;
+    margin-left:-3px;
+}
+
+i.fa-twitter-square
+{
+    color:#00aced;
+}
+
+i.fa-facebook-square
+{
+    color:#3b5998;
+}
+
+i.fa-linkedin-square
+{
+    color:#4875B4;
+}
+
+button.custom-predicate {
+    margin-top: 3px;
+    float: right;
+}
+
+button.custom-rdf-type {
+    margin-top: 3px;
+    float: right;
+}
+
+button.known-rdf-type {
+    margin-top: 3px;
+    float: right;
+}
+
+.button-diagram {
+    margin-right:5px;
+}
+
+.btn-standard-predicate {
+    margin-top: 3px;
+    float: right;
+}
+
+.btn-resource {
+    margin-top: 3px;
+    float: right;
+}
+
+.add-resource {
+    margin-left: 3px;
+}
+
+/* MODALS */
+.modal-show-diagram {
+    width:1400px;
+}
+
+.modal-preview-xml {
+    width:1200px;
+}
+
+.modal-edit-xml {
+    width:1200px;
+}
+
+.modal-add-record {
+    width: 900px;
+}
+
+#xml-edit-text {
+    line-height: 1.4 !important;
+}
+
+/* FORM WIZARD */
+
+.next-button, .submit-button, .back-button {
+    float:right;
+    margin:3px;
+}
+
+.step-title {
+    min-height: 20px;
+    float:left;
+    border-radius: 0;
+}
+
+#psteps_simple .step-title {
+    padding-left: 0;
+    padding-right: 0;
+    width: 99.5% !important;
+    min-height: 28px;
+    display: block;
+}
+#psteps_simple .step-title .step-order {
+    float: left;
+    margin-left: 12%;
+}
+#psteps_simple .step-title .step-name {
+    float: left;
+    margin-left: 2%;
+}
+
+.label-icon {
+	margin-right: 2px;
+}
+
+.value-icon {
+	margin-left: 6px;
+}
+
+.table-label {
+    margin: 0 0 0 0;
+}
+
+/* d3js css */
+
+path.link {
+    fill: none;
+    stroke: #666;
+    stroke-width: 1.5px;
+}
+
+circle {
+    fill: #ccc;
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+text {
+    fill: #000;
+    font: 10px sans-serif;
+    pointer-events: none;
+}
+
+/* PREVIEW CSS */
+
+#literalbody {
+    padding: 5px 5px 5px 5px;
+}
+
+
+.person-img {
+    max-width:100px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icon {
+    font-size:16px;
+    margin-right:10px;
+}
+
+a.boxclose{
+    float:right;
+    margin-top:0px;
+    margin-right:0px;
+    cursor:pointer;
+    color: darkred;
+    border-radius: 30px;
+    font-size: 20px;
+    display: inline-block;
+    line-height: 0px;
+    padding: 11px 3px;
+}
+
+a.boxclose:hover{
+    text-decoration: none;
+}
+
+#diagram {
+   margin-left:auto;
+    margin-right:auto;
+}

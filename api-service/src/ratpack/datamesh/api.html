@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Person {uri}</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/custom.css" rel="stylesheet">
+    <link href="./css/prettify.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">OverStory DataMesh</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/datamesh/api">API</a></li>
+                <li><a href="/datamesh/records">Records</a></li>
+                <li><a href="/datamesh/rdf/record/type">Types</a></li>
+                <li><a href="/datamesh/rdf/prefix">Prefixes</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <h2>OverStory DataMesh API</h2>
+        <table class="table table-hover">
+            <tbody>
+            <tr>
+                <td>Records</td>
+                <td><a href="/datamesh/record">/datamesh/record</a></td>
+                <td>{?terms,ids,refers-to,referenced-by,predicate,type,page,ipp,first-item,created-before,created-after,updated-before,updated-after}</td>
+            </tr>
+            <tr>
+                <td>Types</td>
+                <td><a href="/datamesh/rdf/record/type">/rdf/record/type</a></td>
+                <td>{?page,ipp,first-item}</td>
+            </tr>
+            <tr>
+                <td>Prefixes</td>
+                <td><a href="/datamesh/rdf/prefix">/rdf/prefix</a></td>
+                <td>{?page,ipp,first-item}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="xml-container">
+            <h3><a href="#" class="show_hide" style="color:black;">XML</a></h3>
+            <div class="xml-content">
+                <p>1</p>
+                <p>2</p>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/app.js"></script>
+</body>
+</html>

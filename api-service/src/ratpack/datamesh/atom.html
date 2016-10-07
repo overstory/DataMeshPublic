@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Atom Response</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/custom.css" rel="stylesheet">
+    <link href="./css/prettify.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">OverStory DataMesh</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/datamesh/api">API</a></li>
+                <li><a href="/datamesh/records">Records</a></li>
+                <li><a href="/datamesh/rdf/record/type">Types</a></li>
+                <li><a href="/datamesh/rdf/prefix">Prefixes</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="starter-template">
+        <div class="container readable">
+
+
+        <h2>Atom Response</h2>
+        <p class="lead">/rdf/prefix</p><p class="lead">2014-01-01 00:00:00</p>
+        <a class="btn btn-primary" href="/prevlinkHERE">Prev</a> <a class="btn btn-primary" href="/nextlinkHERE">Next</a><br/>
+            
+            
+            
+            <button class="btn btn-success" data-toggle="modal" data-target="#myModal">Manipulate Prefixes</button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Create/Update prefix</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="inputPrefix" class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="search" class="form-control" id="inputPrefix" placeholder="Prefix...">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-2 control-label">Uri</label>
+                                    <div class="col-sm-10">
+                                        <input type="url" class="form-control" id="inputUri" placeholder="Uri...">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button id="prefix-manipulation" type="button" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            
+            
+            
+            
+            
+        <h3>Entry</h3>
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <td>Self</td>
+                    <td>/rdf/prefix/ost</td>
+                </tr>   
+                <tr>
+                    <td>
+                        Prefix Name
+                    </td>
+                    <td>ost</td>
+                </tr>
+                <tr>
+                    <td>Prefix URI</td>
+                    <td>http://rdf.overstory.co.uk/rdf/terms/</td>
+                </tr>
+            </tbody>
+        </table>
+            <h3>Entry</h3>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td>Self</td>
+                        <td>/rdf/prefix/ost</td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            Prefix Name
+                        </td>
+                        <td>ost</td>
+                    </tr>
+                    <tr>
+                        <td>Prefix URI</td>
+                        <td>http://rdf.overstory.co.uk/rdf/terms/</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Entry</h3>
+            <table class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td>Self</td>
+                        <td>/rdf/prefix/ost</td>
+                    </tr>   
+                    <tr>
+                        <td>
+                            Prefix Name
+                        </td>
+                        <td>ost</td>
+                    </tr>
+                    <tr>
+                        <td>Prefix URI</td>
+                        <td>http://rdf.overstory.co.uk/rdf/terms/</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+
+    </div>
+    
+    
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>
+                    <a data-toggle="collapse" data-parent="#accordion" 
+                        href="#collapseOne">
+                        Show XML
+                    </a>
+                </h3>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson 
+                    cred nesciunt sapiente ea proident. Ad vegan excepteur butcher 
+                    vice lomo.
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/prettify.js"></script>
+    <script src="./js/app.js"></script>
+<script type="text/javascript">
+
+    (function(jQuery){
+
+        jQuery( document ).ready( function() {
+
+            prettyPrint();
+
+        } );
+
+    }(jQuery))
+
+</script>
+</body>
+</html>
