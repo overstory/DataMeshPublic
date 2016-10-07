@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:record-definition xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+	prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+	typeof="ost:RecordDefinition ost:MetaRecord"
+	about="urn:overstory.co.uk:id:record-definition:ost:RecordDefinition">
+	
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:record-definition:ost:RecordDefinition</osc:uri>
+	
+	<osc:rdf-type property="ost:rdfType" resource="ost:RecordDefinition">ost:RecordDefinition</osc:rdf-type>
+	
+	<osc:properties>
+		
+		<osc:property rel="ost:recordProperty">
+			<osc:property-ref property="ost:propertyDefinition" resource="urn:overstory.co.uk:id:property-definition:ost:rdfType"/>
+			<osc:min-occurs property="ost:minOccurs">1</osc:min-occurs>
+			<osc:max-occurs property="ost:maxOccurs">*</osc:max-occurs>
+		</osc:property>
+		
+		<osc:property rel="ost:recordProperty">
+			<osc:property-ref property="ost:propertyDefinition" resource="urn:overstory.co.uk:id:property-definition:ost:recordProperty"/>
+			<osc:min-occurs property="ost:minOccurs">0</osc:min-occurs>
+			<osc:max-occurs property="ost:maxOccurs">*</osc:max-occurs>
+		</osc:property>
+		
+		<osc:property rel="ost:recordElement">
+			<osc:property-ref property="ost:propertyDefinition" resource="urn:overstory.co.uk:id:property-definition:ost:recordElement"/>
+			<osc:min-occurs property="ost:minOccurs">0</osc:min-occurs>
+			<osc:max-occurs property="ost:maxOccurs">*</osc:max-occurs>
+		</osc:property>
+		
+	</osc:properties>
+	
+	<osc:predefined-types rel="ost:predefinedTypes">
+		<osc:rdf-type property="ost:rdfType" resource="ost:MetaRecord">ost:MetaRecord</osc:rdf-type> 
+	</osc:predefined-types>
+	
+	<osc:predefined-properties rel="ost:predefinedProperties">
+
+	</osc:predefined-properties>	
+	
+</osc:record-definition>

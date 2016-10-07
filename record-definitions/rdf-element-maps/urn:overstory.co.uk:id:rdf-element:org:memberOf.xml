@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+                     prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+                     typeof="ost:RdfElementMap ost:MetaRecord"
+                     about="urn:overstory.co.uk:id:rdf-element:org:memberOf">
+   <osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:org:memberOf</osc:uri>
+        <osc:rdf-type property="ost:rdfType">org:memberOf</osc:rdf-type>
+        <osc:element-qname property="ost:elementQName">osc:member-of</osc:element-qname>
+    	<osc:label property="ost:label">Member Of</osc:label>
+		<osc:icon property="ost:icon">fa-group</osc:icon>
+        <osc:properties>
+            <osc:searchable property="ost:searchable">false</osc:searchable>
+        </osc:properties>
+    </osc:rdf-element-map>

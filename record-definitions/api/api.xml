@@ -1,0 +1,57 @@
+<osc:api
+	prefix="ost: http://rdf.overstory.co.uk/rdf/terms/ foaf: http://xmlns.com/foaf/0.1/ vcard: http://www.w3.org/2006/vcard/ns# dc: http://purl.org/dc/terms/"
+	typeof="ost:Api"
+	about="urn:overstory.co.uk:id:api:bootstrap"
+	xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content">
+	<osc:uri property="dc:identifier ost:uri">urn:overstory.co.uk:id:api:bootstrap</osc:uri>
+	<osc:link rel="ost:link">
+		<osc:address property="ost:href" content="/record"/>
+		<osc:description property="dc:description">Retrieve record resources.</osc:description>
+		<osc:parameters>
+			<osc:parameter property="ost:parameter">terms</osc:parameter>
+			<osc:parameter property="ost:parameter">ids</osc:parameter>
+			<osc:parameter property="ost:parameter">refers-to</osc:parameter>
+			<osc:parameter property="ost:parameter">referenced-by</osc:parameter>
+			<osc:parameter property="ost:parameter">predicate</osc:parameter>
+			<osc:parameter property="ost:parameter">type</osc:parameter>
+			<osc:parameter property="ost:parameter">created-before</osc:parameter>
+			<osc:parameter property="ost:parameter">created-after</osc:parameter>
+			<osc:parameter property="ost:parameter">updated-before</osc:parameter>
+			<osc:parameter property="ost:parameter">updated-after</osc:parameter>
+			<osc:parameter property="ost:parameter">page</osc:parameter>
+			<osc:parameter property="ost:parameter">ipp</osc:parameter>
+			<osc:parameter property="ost:parameter">first-item</osc:parameter>
+		</osc:parameters>
+	</osc:link>
+	<osc:link rel="ost:link">
+		<osc:address property="ost:href" content="/sparql"/>
+		<osc:description property="dc:description">Retrieve record resources.</osc:description>
+		<osc:parameters>
+			<osc:parameter property="ost:parameter">sparql</osc:parameter>
+			<osc:parameter property="ost:parameter">page</osc:parameter>
+			<osc:parameter property="ost:parameter">ipp</osc:parameter>
+			<osc:parameter property="ost:parameter">first-item</osc:parameter>
+		</osc:parameters>
+	</osc:link>
+	<osc:link rel="ost:link">
+		<osc:address property="ost:href" content="/rdf/record/type"/>
+		<osc:description property="dc:description">Retrieve rdf resource types resource list.</osc:description>
+		<osc:parameters>
+			<osc:parameter property="ost:parameter">page</osc:parameter>
+			<osc:parameter property="ost:parameter">ipp</osc:parameter>
+			<osc:parameter property="ost:parameter">first-item</osc:parameter>
+		</osc:parameters>
+	</osc:link>
+	<osc:link rel="ost:link">
+		<osc:address property="ost:href" content="/rdf/prefix"/>
+		<osc:description property="dc:description">Retrieve rdf prefixes resource list.</osc:description>
+		<osc:parameters>
+			<osc:parameter property="ost:parameter">page</osc:parameter>
+			<osc:parameter property="ost:parameter">ipp</osc:parameter>
+			<osc:parameter property="ost:parameter">first-item</osc:parameter>
+		</osc:parameters>
+	</osc:link>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:api>

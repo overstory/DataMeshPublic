@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					 prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+					 typeof="ost:RdfElementMap ost:MetaRecord"
+					 about="urn:overstory.co.uk:id:rdf-element:foaf:account">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:foaf:account</osc:uri>
+	<osc:rdf-type property="ost:rdfType">foaf:account</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">foaf:account</osc:element-qname>
+	<osc:element-ns property="ost:elementNs">http://xmlns.com/foaf/0.1/</osc:element-ns>
+	<osc:label property="ost:label">Account</osc:label>
+	<osc:icon property="ost:icon">fa-chain</osc:icon>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

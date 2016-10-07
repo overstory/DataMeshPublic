@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+                     prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+                     typeof="ost:RdfElementMap ost:MetaRecord"
+                     about="urn:overstory.co.uk:id:rdf-element:swc:holdsRole">
+   <osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:swc:holdsRole</osc:uri>
+        <osc:rdf-type property="ost:rdfType">swc:holdsRole</osc:rdf-type>
+        <osc:element-qname property="ost:elementQName">swc:holdsRole</osc:element-qname>
+		<osc:element-ns property="ost:elementNs">http://data.semanticweb.org/ns/swc/ontology#</osc:element-ns>
+    	<osc:label property="ost:label">Holds Role</osc:label>
+		<osc:icon property="ost:icon">fa-certificate</osc:icon>
+        <osc:properties>
+            <osc:searchable property="ost:searchable">false</osc:searchable>
+        </osc:properties>
+    </osc:rdf-element-map>

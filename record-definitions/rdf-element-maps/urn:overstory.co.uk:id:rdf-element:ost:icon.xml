@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					 prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+					 typeof="ost:RdfElementMap ost:MetaRecord"
+					 about="urn:overstory.co.uk:id:rdf-element:ost:icon">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:ost:icon</osc:uri>
+	<osc:rdf-type property="ost:rdfType">ost:icon</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">osc:icon</osc:element-qname>
+	<osc:label property="ost:label">Icon</osc:label>
+	<osc:icon property="ost:icon">fa-square</osc:icon>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

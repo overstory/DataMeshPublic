@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+                     prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+                     typeof="ost:RdfElementMap ost:MetaRecord"
+                     about="urn:overstory.co.uk:id:rdf-element:org:companyId">
+   <osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:org:companyId</osc:uri>
+        <osc:rdf-type property="ost:rdfType">ost:companyId</osc:rdf-type>
+        <osc:element-qname property="ost:elementQName">osc:company-id</osc:element-qname>
+    	<osc:label property="ost:label">Company Id</osc:label>
+        <osc:properties>
+            <osc:searchable property="ost:searchable">false</osc:searchable>
+        </osc:properties>
+    </osc:rdf-element-map>

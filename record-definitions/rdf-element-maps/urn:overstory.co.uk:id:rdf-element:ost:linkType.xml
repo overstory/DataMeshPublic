@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					 prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+					 typeof="ost:RdfElementMap ost:MetaRecord"
+					 about="urn:overstory.co.uk:id:rdf-element:ost:linkType">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:ost:linkType</osc:uri>
+	<osc:rdf-type property="ost:rdfType">ost:linkType</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">osc:linkType</osc:element-qname>
+	<osc:label property="ost:label">Link Type</osc:label>
+	<osc:icon property="ost:icon">fa-link</osc:icon>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

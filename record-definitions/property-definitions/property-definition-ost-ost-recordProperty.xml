@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:property-definition xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+	prefix="ost: http://rdf.overstory.co.uk/rdf/terms/ dc: http://purl.org/dc/terms/"
+	typeof="ost:PropertyDefinition ost:MetaRecord"
+	about="urn:overstory.co.uk:id:property-definition:ost:recordProperty">
+	
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:property-definition:ost:recordProperty</osc:uri>
+	
+	<osc:properties>
+		<osc:property-name property="ost:propertyName">ost:recordProperty</osc:property-name>
+		<osc:property-description property="dc:description">RDF Type for the record definition.</osc:property-description>
+	</osc:properties>
+	
+</osc:property-definition>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					 prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+					 typeof="ost:RdfElementMap ost:MetaRecord"
+					 about="urn:overstory.co.uk:id:rdf-element:rdf:type">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:rdf:type</osc:uri>
+	<osc:rdf-type property="ost:rdfType">rdf:type</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">rdf:type</osc:element-qname>
+	<osc:element-ns property="ost:elementNs">http://www.w3.org/2000/01/rdf-schema#</osc:element-ns>
+	<osc:label property="ost:label">RDF Type</osc:label>
+	<osc:icon property="ost:icon">fa-cogs</osc:icon>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:element-definition xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+	prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+	typeof="ost:ElementDefinition"
+	about="urn:overstory.co.uk:id:element-definition:osc:email">
+	
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:element-definition:osc:email</osc:uri>
+	
+	<osc:properties>
+		<osc:element-name property="ost:elementName">osc:email</osc:element-name>
+		<osc:element-ns property="ost:elementNs">http://ns.overstory.co.uk/namespaces/datamesh/content</osc:element-ns>
+		<osc:element-descriptions property="dc:description">Email address.</osc:element-descriptions>
+	</osc:properties>
+	
+</osc:element-definition>

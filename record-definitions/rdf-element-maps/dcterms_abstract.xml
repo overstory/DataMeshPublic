@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:rdf-element-map xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					 prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+					 typeof="ost:RdfElementMap ost:MetaRecord"
+					 about="urn:overstory.co.uk:id:rdf-element:dcterms:abstract">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:dcterms:abstract</osc:uri>
+	<osc:rdf-type property="ost:rdfType">dcterms:abstract</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">dcterms:abstract</osc:element-qname>
+	<osc:element-ns property="ost:elementNs">http://purl.org/dc/terms/</osc:element-ns>
+	<osc:label property="ost:label">Abstract</osc:label>
+	<osc:icon property="ost:icon">fa-info-circle</osc:icon>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

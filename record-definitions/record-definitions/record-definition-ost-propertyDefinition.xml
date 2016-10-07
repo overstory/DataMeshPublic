@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osc:record-definition xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+	prefix="ost: http://rdf.overstory.co.uk/rdf/terms/"
+	typeof="ost:RecordDefinition ost:MetaRecord"
+	about="urn:overstory.co.uk:id:record-definition:ost:PropertyDefinition">
+	
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:record-definition:ost:PropertyDefinition</osc:uri>
+	
+	<osc:rdf-type property="ost:rdfType" resource="ost:PropertyDefinition">ost:PropertyDefinition</osc:rdf-type>
+	
+	<osc:properties>
+		
+		<osc:property rel="ost:recordProperty">
+			<osc:property-ref property="ost:propertyDefinition" resource="urn:overstory.co.uk:id:property-definition:ost:propertyName"/>
+			<osc:min-occurs property="ost:minOccurs">1</osc:min-occurs>
+			<osc:max-occurs property="ost:maxOccurs">1</osc:max-occurs>
+		</osc:property>
+		
+		<osc:property rel="ost:recordProperty">
+			<osc:property-ref property="ost:propertyDefinition" resource="urn:overstory.co.uk:id:property-definition:ost:propertyType"/>
+			<osc:min-occurs property="ost:minOccurs">0</osc:min-occurs>
+			<osc:max-occurs property="ost:maxOccurs">1</osc:max-occurs>
+		</osc:property>
+		
+	</osc:properties>
+	
+	<!--<osc:elements>
+		
+		<osc:element rel="ost:recordElement">
+			<osc:element-ref property="ost:elementDefinition" resource="urn:overstory.co.uk:id:element-definition:osc:name"/>
+			<osc:schema-validation property="ost:validate" datatype="xs:boolean">true</osc:schema-validation>
+		</osc:element>
+		
+		<osc:element rel="ost:recordElement">
+			<osc:element-ref property="ost:elementDefinition" resource="urn:overstory.co.uk:id:element-definition:osc:email"/>
+		</osc:element>
+		
+	</osc:elements>-->
+	
+	<osc:predefined-properties property="ost:predefinedProperties" datatype="rdf:XMLLiteral">
+		<foaf:owner xmlns:foaf="http://xmlns.com/foaf/0.1/" property="foaf:owner">Accounting</foaf:owner>
+		<ost:support xmlns:ost="http://rdf.overstory.co.uk/rdf/terms/" property="ost:support">Support</ost:support>
+	</osc:predefined-properties>
+	
+	<osc:predefined-types rel="ost:predefinedTypes">
+		<osc:rdf-type property="ost:rdfType" resource="ost:MetaRecord"/>
+	</osc:predefined-types>	
+	
+	
+</osc:record-definition>
