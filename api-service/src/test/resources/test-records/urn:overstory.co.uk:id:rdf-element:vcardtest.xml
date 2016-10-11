@@ -1,0 +1,9 @@
+<osc:rdf-element-map prefix="ost: http://rdf.overstory.co.uk/rdf/terms/" typeof="ost:RdfElementMap" about="urn:overstory.co.uk:id:rdf-element:vcard:TITLE" xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content">
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:rdf-element:vcard:TITLE</osc:uri>
+	<osc:rdf-type property="ost:rdfType">vcard:TITLE</osc:rdf-type>
+	<osc:element-qname property="ost:elementQName">vcard:TITLE</osc:element-qname>
+	<osc:label property="ost:label">Title</osc:label>
+	<osc:properties>
+		<osc:searchable property="ost:searchable">false</osc:searchable>
+	</osc:properties>
+</osc:rdf-element-map>

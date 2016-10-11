@@ -1,0 +1,26 @@
+# 1.  Create image from this file
+# docker build -t "cschlegelmilch/corb" .
+# 2.  Run script with mapped volumes.
+# docker run -v /Users/craig/Desktop/CUP/CUP-Content-Platform/corb/sh:/opt/corb/sh -v /Users/craig/Desktop/CUP/CUP-Content-Platform/corb/xqy:/opt/corb/xqy cschlegelmilch/corb sh /opt/corb/sh/1198-inline-citation-source.sh
+# docker run -v /opt/CUP-Content-Platform/corb/sh:/opt/corb/sh -v /opt/CUP-Content-Platform/corb/xqy:/opt/corb/xqy cschlegelmilch/corb sh /opt/corb/sh/1198-inline-citation-source.sh
+
+FROM centos:6.6
+MAINTAINER Craig Schlegelmilch "craig@overstory.co.uk"
+ENV TERM xterm
+
+RUN yum install -y epel-release
+RUN yum -y update && yum clean all
+RUN yum install -y wget
+RUN yum install -y unzip
+RUN yum install -y java-1.8.0-openjdk.x86_64
+
+RUN mkdir -p /opt/corb/lib
+WORKDIR /opt/corb/lib
+RUN wget "https://github.com/marklogic/corb2/releases/download/2.3.0/marklogic-corb-2.3.0.jar"
+
+RUN mkdir -p /tmp/xcc
+WORKDIR /tmp/xcc
+RUN wget "https://developer.marklogic.com/download/binaries/8.0/MarkXCC.Java-8.0-5.zip"
+RUN unzip MarkXCC.Java-8.0-5.zip
+RUN mv lib/marklogic-xcc-8.0.5.jar /opt/corb/lib/
+RUN rm -r /tmp/xcc

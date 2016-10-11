@@ -258,13 +258,13 @@ declare function etag-conflict (
 	then
 		<e:errors>{
 			if (fn:empty ($incoming-etag))
-			then 
+			then
 				<e:missing-etag>
 					<e:message>Missing request ETag to modify {$incoming-uri}</e:message>
 					<e:current-etag>{$record-etag}</e:current-etag>
 					<e:uri>{$incoming-uri}</e:uri>
 				</e:missing-etag>
-			else 
+			else
 				<e:etag-mismatch>
 					<e:message>Given ETag value does not match current resource ETag</e:message>
                 	<e:given-etag>{$incoming-etag}</e:given-etag>
@@ -287,13 +287,13 @@ declare function validate-record (
 	let $validate-properties := validate-required-properties ($triples, $typeof)
 	let $validate-elements := validate-required-elements ($doc, $typeof)
 	let $validate-schema := validate-schema-elements ($doc, $typeof)
-	return 
+	return
 		if ( (fn:not (fn:empty ($validate-properties))) or (fn:not (fn:empty ($validate-elements))) or (fn:not (fn:empty ($validate-schema))))
 		then <e:errors>{$validate-properties, $validate-elements, $validate-schema}</e:errors>
 		else ()
 };
 
-declare function validate-schema-elements ( 
+declare function validate-schema-elements (
 	$doc as element(),
 	$typeof as xs:string*
 )
@@ -302,14 +302,14 @@ declare function validate-schema-elements (
 		for $rdf-type in $typeof
 		let $SPARQL := fn:concat (fn:string-join (search:build-prefix-list (), " "), (" "), fn:replace($const:SCHEMA-VALIDATION-SPARQL-TEMPLATE, '&apos;incoming-rdf-type&apos;', $rdf-type))
 		let $result-map := sem:sparql ($SPARQL)
-		return 
-			for $result in $result-map 
-			return 
+		return
+			for $result in $result-map
+			return
 				let $element-name := map:get ($result, "elementName")
 				let $element-ns := map:get ($result, "elementNs")
-				return 
+				return
 					for $element in $doc//*[namespace-uri() = $element-ns][local-name() = fn:substring-after ($element-name, ":") ]
-					return 
+					return
 						try {
 							let $_ := validate { document { $element } }
 							return ()
@@ -331,11 +331,11 @@ declare function validate-schema-elements (
 								)
 							}</e:schema-validation>
 						}
-	return 
+	return
 		if (fn:empty ($schema-errors)) then ()
 		else <e:errors>{$schema-errors}</e:errors>
-			
-	
+
+
 };
 
 declare function validate-required-elements (
@@ -350,20 +350,20 @@ declare function validate-required-elements (
 	return
 		(: for each result harvest information about a validation :)
 		for $result in $result-map
-		return 
+		return
 			let $element-name := map:get ($result, "elementName")
 			let $element-ns := map:get ($result, "elementNs")
-			
+
 			let $element-type := map:get ($result, "elementType")
 			let $min-occurs := (map:get ($result, "minOccurs"), ("1"))[1]
 			let $max-occurs := (map:get ($result, "maxOccurs"), ("1"))[1]
 			let $prop-def := map:get ($result, "propDef")
-			return 
+			return
 				(: if there is no property-def then the check is only for required element on the root level :)
 				if (fn:empty ($prop-def))
-				then  
+				then
 					(: find elements based on element-ns and element-name :)
-					let $elements-validated := ($doc//*[namespace-uri() = $element-ns][local-name() = fn:substring-after ($element-name, ":") ])	
+					let $elements-validated := ($doc//*[namespace-uri() = $element-ns][local-name() = fn:substring-after ($element-name, ":") ])
 					(: count how many there are :)
 					let $elements-occurs := fn:count ($elements-validated)
 					(: validate each element string - castable as element-type :)
@@ -372,7 +372,7 @@ declare function validate-required-elements (
 					let $validate-element-occurs := validate-element-occurs ($elements-occurs, $min-occurs, $max-occurs, $element-name, $rdf-type, ())
 					return
 						($validate-element-type, $validate-element-occurs)
-				else 
+				else
 					let $SPARQL := fn:concat (fn:string-join (search:build-prefix-list (), " "), (" "), "SELECT ?propName ?propType { <" || $prop-def || "> ost:propertyName ?propName  . OPTIONAL { <" || $prop-def || "> ost:propertyType ?propType } }")
 					let $result-map := sem:sparql ($SPARQL)
 					let $prop-name := map:get ($result-map, "propName")
@@ -382,7 +382,7 @@ declare function validate-required-elements (
 					let $validate-element-occurs := validate-element-occurs ($elements-occurs, $min-occurs, $max-occurs, $element-name, $rdf-type, $prop-name)
 					return
 						($validate-element-type, $validate-element-occurs)
-	
+
 };
 
 declare function validate-element-occurs (
@@ -394,8 +394,8 @@ declare function validate-element-occurs (
 	$property-name as xs:string?
 ) as element(e:validation-failed)*
 {
-	if ($element-occurs < xs:int($min-occurs)) 
-	then 
+	if ($element-occurs < xs:int($min-occurs))
+	then
 		<e:validation-failed>
 			<e:message>Validation for rdf type '{$rdf-type}' document failed, minimal occurs not met for the element '{$element-name}' {if (fn:empty($property-name)) then () else "with property '" || $property-name ||"'"}.</e:message>
 			<e:element-name>{$element-name}</e:element-name>
@@ -403,9 +403,9 @@ declare function validate-element-occurs (
 		</e:validation-failed>
 	else if ($max-occurs = "*")
 	then ()
-	else 
+	else
 		if ($element-occurs > xs:int($max-occurs))
-		then 
+		then
 			<e:validation-failed>
 				<e:message>Validation for rdf type '{$rdf-type}' document failed, maximal occurs not met for the element '{$element-name}' with property '{$property-name}'.</e:message>
 				<e:element-name>{$element-name}</e:element-name>
@@ -424,10 +424,10 @@ declare function validate-element-type (
 	for $element in $elements-validated
 	let $element-value := $element/string()
 	let $castable := xdmp:castable-as ("http://www.w3.org/2001/XMLSchema", "int"(:fn:substring-after ($element-type, ":"):), $element-value)
-	return 
+	return
 		if ($castable = fn:true())
 		then ()
-		else 
+		else
 			<e:validation-failed>
 				<e:message>Validation for rdf type '{$rdf-type}' document failed, required type for element '{$element-name}' is '{$element-type}', provided value for that element was '{$element-value}'.</e:message>
 				<e:element-name>{$element-name}</e:element-name>
@@ -441,12 +441,12 @@ declare function validate-required-properties (
 	$typeof as xs:string*
 ) as element(e:validation-failed)*
 {
-	for $rdf-type in $typeof 
+	for $rdf-type in $typeof
 	let $SPARQL := fn:concat (fn:string-join (search:build-prefix-list (), " "), (" "), fn:replace($const:REQUIRED-PROPERTIES-FROM-RDF-TYPE-SPARQL-TEMPLATE, '&apos;incoming-rdf-type&apos;', $rdf-type))
 	let $result-map := sem:sparql ($SPARQL)
-	return 
+	return
 		for $result in $result-map
-		return 
+		return
 			let $prop-name := map:get ($result, "propName")
 			let $prop-type := map:get ($result, "propType")
 			let $min-occurs := (map:get ($result, "minOccurs"), ("1"))[1]
@@ -466,13 +466,13 @@ declare function validate-property-type (
 	$prop-name as xs:string
 ) as element(e:validation-failed)*
 {
-	for $result in $result-map 
+	for $result in $result-map
 	let $prop-value := map:get ($result, "o")
 	let $castable := xdmp:castable-as ("http://www.w3.org/2001/XMLSchema", fn:substring-after ($prop-type, ":"), $prop-value)
-	return 
+	return
 		if ($castable = fn:true())
 		then ()
-		else 
+		else
 			<e:validation-failed>
 				<e:message>Validation for rdf type '{$rdf-type}' document failed, required type for property '{$prop-name}' is '{$prop-type}', provided value for that property was '{$prop-value}'.</e:message>
 				<e:property-name>{$prop-name}</e:property-name>
@@ -489,8 +489,8 @@ declare function validate-property-occurs (
 	$rdf-type as xs:string
 ) as element(e:validation-failed)*
 {
-	if ($prop-occurs < xs:int($min-occurs)) 
-	then 
+	if ($prop-occurs < xs:int($min-occurs))
+	then
 		<e:validation-failed>
 			<e:message>Validation for rdf type '{$rdf-type}' document failed, minimal occurs not met for the property '{$prop-name}'.</e:message>
 			<e:property-name>{$prop-name}</e:property-name>
@@ -498,9 +498,9 @@ declare function validate-property-occurs (
 		</e:validation-failed>
 	else if ($max-occurs = "*")
 	then ()
-	else 
+	else
 		if ($prop-occurs	 > xs:int($max-occurs))
-		then 
+		then
 			<e:validation-failed>
 				<e:message>Validation for rdf type '{$rdf-type}' document failed, maximal occurs not met for the property '{$prop-name}'.</e:message>
 				<e:property-name>{$prop-name}</e:property-name>
@@ -510,7 +510,7 @@ declare function validate-property-occurs (
 };
 
 declare function extract-predefined-rdf-types (
-	$incoming-doc, 
+	$incoming-doc,
 	$record-rdf-type
 ) as xs:string*
 {
@@ -527,22 +527,22 @@ declare function extract-predefined-rdf-types (
 };
 
 declare function inject-predefined-rdf-types (
-	$incoming-doc, 
+	$incoming-doc,
 	$predefined-types as xs:string*
 ) as element()
 {
 	let $current-types := $incoming-doc/@typeof/string()
 	let $prefix-map := prefix-map()
-	let $new-types := 
+	let $new-types :=
 		for $type in $predefined-types
 		let $curied :=
 			for $key in map:keys ($prefix-map)
             where fn:starts-with ($type, $key)
-            return fn:concat (map:get ($prefix-map, $key), ':', fn:substring-after($type, $key)) 
-        return 
+            return fn:concat (map:get ($prefix-map, $key), ':', fn:substring-after($type, $key))
+        return
         	if (fn:empty ($curied)) then $type else $curied
 	let $final-types := fn:concat( fn:string-join ($new-types, ' '), ' ', $current-types)
-		return 
+		return
 			element {node-name ($incoming-doc/self::*)}
 	        {
 				$incoming-doc/@*[name() != 'typeof'],
@@ -552,7 +552,7 @@ declare function inject-predefined-rdf-types (
 };
 
 (:declare function extract-predefined-properties (
-	$incoming-doc, 
+	$incoming-doc,
 	$record-rdf-type
 ) as element(predefined-properties)
 {
@@ -560,18 +560,18 @@ declare function inject-predefined-rdf-types (
 		for $rdf-type in fn:tokenize ($record-rdf-type, ' ')
 		let $SPARQL := fn:concat (fn:string-join (search:build-prefix-list (), " "), (" "), fn:replace($const:RECORD-DEFINITION-RECORD-URI-FOR-INCOMING-TYPE, '&apos;incoming-rdf-type&apos;', $rdf-type))
 		let $result-map := sem:sparql ($SPARQL)
-		return 
+		return
 			let $record-definition := fetch-record-with-short-resource-uri (map:get ($result-map, 'uri'))
 			let $predefined-properties := $record-definition/*/osc:predefined-properties/*
 			return $predefined-properties
-	}</predefined-properties>	
+	}</predefined-properties>
 };
 :)
 
-declare function extract-predefined-properties ( 
-	$incoming-doc, 
+declare function extract-predefined-properties (
+	$incoming-doc,
 	$record-rdf-type
-) 
+)
 {
 	<predefined-properties>{
 	for $rdf-type in fn:tokenize ($record-rdf-type, ' ') [1]
@@ -691,8 +691,8 @@ declare function build-type-search-response (
     let $first := $search-criteria/oss:first
     let $last := $search-criteria/oss:last
     return
-        <oss:result  first="{$first}" last="{$last}" page-size="{$page-size}" total-hits="{$total-hits}">
-            {
+        <oss:result first="{$first}" last="{$last}" page-size="{$page-size}" total-hits="{$total-hits}">
+    	{
             for $entry in $prefix-doc//osc:type-entry [$first to $last]
             return
                 <osc:type>
@@ -700,7 +700,7 @@ declare function build-type-search-response (
                         $entry/*
                     }
                 </osc:type>
-            }
+    	}
         </oss:result>
 };
 
@@ -768,7 +768,7 @@ declare function validate-prefix-uri (
     then ()
     else if (fn:matches ($prefix-uri, "^urn:[a-z0-9()+,\-.:=@;$_!*'%/?#]+$"))
     then ()
-    else 
+    else
     	<e:errors>
 			<e:malformed-body>
 				<e:message>Prefix uri is incorrect</e:message>
@@ -822,12 +822,12 @@ declare function build-rdfa-triple (
             then 'osc:resource-ref'
             else ()
         else $element-name
-	
+
 	let $element-name-ns-prefix := get-ns-prefix ($element-name)
 	let $element-ns := ((if ($element-name-ns-prefix = 'osc') then ($const:OSC-NAMESPACE) else()), map:get($rdf-element-map, 'elementNs'), get-ns-for-prefix ($element-name-ns-prefix))[1]
     let $element-qname := fn:QName ($element-ns, $element-name)
-	
-	return 
+
+	return
         if ($object-type = 'property')
         then
             if ($description!='')
@@ -1012,8 +1012,8 @@ declare function validate-triple-params (
             </e:missing-parameter>
 		</e:errors>
 	else if (
-	$predicate = 'ost:etag' or $predicate = $const:OST-FULL-URI || 'etag' 
-	or $predicate = 'ost:created' or $predicate = $const:OST-FULL-URI || 'created' 
+	$predicate = 'ost:etag' or $predicate = $const:OST-FULL-URI || 'etag'
+	or $predicate = 'ost:created' or $predicate = $const:OST-FULL-URI || 'created'
 	or $predicate = 'ost:updated' or $predicate = $const:OST-FULL-URI || 'updated'
 	or $predicate = 'ost:uri' or $predicate = $const:OST-FULL-URI || 'ost:uri'
 	)
@@ -1027,7 +1027,7 @@ declare function validate-triple-params (
 		</e:errors>
 	else ()
 };
-	
+
 
 (: ---------------------------------------------------------- :)
 (:  Get XML Request Body :)

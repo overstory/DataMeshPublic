@@ -4,6 +4,9 @@ module namespace rc="urn:overstory:rest:modules:constants";
 
 declare variable $MEDIA-TYPE-ERROR-XML as xs:string := "application/vnd.overstory:rest.error+xml";
 declare variable $MEDIA-TYPE-STANDARD-XML as xs:string := "application/xml";
+declare variable $MEDIA-TYPE-STANDARD-JSON as xs:string := "application/json";
+declare variable $MEDIA-TYPE-ATOM_XML as xs:string := "application/atom+xml";
+declare variable $MEDIA-TYPE-ATOM_JSON as xs:string := "application/atom+json";
 
 declare variable $HTTP-OK as xs:int := 200;
 declare variable $HTTP-CREATED as xs:int := 201;

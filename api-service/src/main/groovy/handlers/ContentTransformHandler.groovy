@@ -26,7 +26,7 @@ class ContentTransformHandler implements Handler
 		}
 
 		context.response.status (myResponse.statusCode)
-		context.response.contentType (myResponse.contentType)
-		context.response.send (myResponse.body.bytes)
+		if (myResponse.contentType != null) context.response.contentType (myResponse.contentType)
+		if (myResponse.body.bytes != null) context.response.send (myResponse.body.bytes)
 	}
 }

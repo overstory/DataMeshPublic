@@ -1,6 +1,7 @@
-package handlers
+package handlers.record
 
 import com.google.inject.Inject
+import handlers.MLPassThruHttpClientHandler
 import ratpack.handling.Context
 import ratpack.handling.Handler
 import repositories.XmlRepository
@@ -15,6 +16,7 @@ class RecordHandler implements Handler
 {
 	private final XmlRepository xmlRepository
 	private final Handler getHandler = new GetRecordHandler ()
+	private final Handler putHandler = new PutRecordHandler ()
 
 	@Inject
 	RecordHandler (XmlRepository xmlRepository)
@@ -27,10 +29,20 @@ class RecordHandler implements Handler
 	{
 		context.byMethod {
 			it.get { context.insert (getHandler) }
+			it.put { context.insert (putHandler) }
 		}
 	}
 
 	private class GetRecordHandler implements Handler
+	{
+		@Override
+		void handle (Context context) throws Exception
+		{
+			context.insert (context.get (MLPassThruHttpClientHandler))
+		}
+	}
+
+	private class PutRecordHandler implements Handler
 	{
 		@Override
 		void handle (Context context) throws Exception

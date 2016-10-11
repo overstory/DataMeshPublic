@@ -1,0 +1,13 @@
+<osc:person
+		xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+		prefix="ost: http://rdf.overstory.co.uk/rdf/terms/ foaf: http://xmlns.com/foaf/0.1/ dc: http://purl.org/dc/terms/ org: http://www.w3.org/ns/org#"
+		typeof="ost:DataRecord foaf:Person"
+		about="urn:overstory.co.uk:id:person:test_record">
+	<osc:uri property="dc:identifier ost:uri">urn:overstory.co.uk:id:person:test_record</osc:uri>
+	<osc:fname property="foaf:firstName">Marcin</osc:fname>
+	<osc:lname property="foaf:surname">Rachocki</osc:lname>
+	<osc:address property="ost:address" resource="urn:overstory.co.uk:id:address:38"/>
+	<osc:properties>
+		<osc:email property="foaf:mbox">rachockim@gmail.com</osc:email>
+	</osc:properties>
+</osc:person>

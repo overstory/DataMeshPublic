@@ -8,6 +8,8 @@ package config
  */
 class AppConstants
 {
+	static public final String appPropertyName = 'datamesh'
+
 	static public final String errorXmlContentType = "application/vnd.overstory.rest.errors+xml"
 	static public final String errorJsonContentType = "application/vnd.overstory.rest.errors+json"
 
@@ -32,6 +34,10 @@ class AppConstants
 	static public final String applicationCollectionsJson = "application/vnd.collections+json"
 	static public final String applicationOctetStream = "application/octet-stream"
 	static public final String applicationZip = "application/zip"
+	static public final String applicationDataMeshMetaXml = "application/vnd.overstory.meta.id+xml"
+	static public final String applicationDataMeshMetaJson = "application/vnd.overstory.meta.id+json"
+	static public final String applicationDataMeshRecordXml = "application/vnd.overstory.record+xml"
+	static public final String applicationDataMeshRecordJson = "application/vnd.overstory.record+json"
 
 	//http 1.1. status codes
 	static public final int OK = 200
@@ -49,7 +55,7 @@ class AppConstants
 	static public final int InternalServerError = 500
 	static public final int BadGateway = 502
 
-	private AppConstants ()
+	private AppConstants()
 	{
 		// cannot be instantiated
 	}

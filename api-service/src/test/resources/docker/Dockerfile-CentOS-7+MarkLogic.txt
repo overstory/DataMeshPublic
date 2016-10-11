@@ -1,0 +1,27 @@
+# NOTE: I never got thi running on CentOS 7.  The MarkLogic startup script doesn't work
+
+# 1.  Create image from this file
+# docker build --force-rm -f Dockerfile-Centos-6.7+MarkLogic.txt -t overstory/general:centos7-marklogic8.0-5.8 .
+# 2.  Run script with mapped volumes.
+# docker run -v /outside/path:inside/path image/name
+
+FROM centos:7
+MAINTAINER Ron Hitchens "ron@overstory.co.uk"
+ENV TERM xterm
+
+RUN yum install -y epel-release
+RUN yum -y update && yum clean all
+RUN yum install -y wget
+RUN yum install -y unzip
+RUN yum install -y gdb
+RUN yum install -y lsb-core-amd64
+RUN yum install -y libc.so.6
+
+ADD MarkLogic-RHEL7-8.0-5.8.x86_64.rpm /tmp
+RUN rpm -iv /tmp/MarkLogic-RHEL7-8.0-5.8.x86_64.rpm
+RUN rm -f /tmp/MarkLogic-RHEL7-8.0-5.8.x86_64.rpm
+
+EXPOSE 8000 8001 5000
+VOLUME /opt/appserver-root
+
+CMD /sbin/service MarkLogic start \u0026\u0026 tail -f /dev/null

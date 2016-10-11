@@ -1,6 +1,11 @@
+import config.AppConfigBuilder
 import config.ConfigModule
-import handlers.MLPassThruHttpClientHandler
-import handlers.RecordHandler
+import handlers.NotFoundHandler
+import handlers.record.RecordHandler
+import handlers.api.ApiHandler
+import handlers.rdf.RdfHandler
+import handlers.record.RecordListHandler
+import ratpack.config.ConfigData
 import ratpack.handling.Context
 
 import java.nio.file.Path
@@ -9,11 +14,16 @@ import static ratpack.groovy.Groovy.ratpack
 
 ratpack
 {
+	ConfigObject configObject = AppConfigBuilder.appConfig()
+	// Building this configData instance flattens the exclusion patterns list in ConfigObject to a String.  Holding on to both.
+	ConfigData configData = ConfigData.builder().props (configObject.toProperties()).env().sysProps().build()
+
 	serverConfig {
+		AppConfigBuilder.loadLogback()
 	}
 
 	bindings {
-		module ConfigModule
+		module new ConfigModule (configData, configObject)
 	}
 
 	handlers {
@@ -31,43 +41,64 @@ ratpack
 //			}
 //		}
 
-		path ("") {
-			Path asset = file ("public/index.html")
+//		path ("") {
+//			Path asset = file ("public/index.html")
+//
+//			if (asset.toFile().exists()) render asset else next()
+//		}
 
-			if (asset.toFile().exists()) render asset else next()
+		path ('') {
+			redirect ('/api')
 		}
 
-		path ('datamesh') {
-			redirect ('/datamesh/api')
+		path ('api') {
+			insert (get (ApiHandler))
 		}
 
-		path ('datamesh/record') {
+		path ('rdf') {
+			println "MATCH RDF ONLY"
+			insert (get (RdfHandler))
+		}
+		path ('rdf/:which') {
+			println "MATCH RDF SEARCH"
+			insert (get (RdfHandler))
+		}
+		path ('rdf/:which/:id') {
+			println "MATCH RDF PAGE ${request.path}"
+			insert (get (RdfHandler))
+		}
+
+		path ('record') {
+			insert (get (RecordListHandler))
+		}
+
+		path ('record/id/:id') {
 			insert (get (RecordHandler))
 		}
 
-		path ("datamesh/:page") {
-			println "MATCH ANGULAR PAGE"
-			Path asset = file (request.path)
-
-			if (asset.toFile().exists()) {
-				render asset
-			} else {
-				asset = file ("${request.path}.html")
-
-				if (asset.toFile().exists()) {
-					render asset
-				} else {
-					next()
-				}
-			}
-		}
-
-		path ("datamesh/::.+") {
-			println "MATCH PATH ${request.path}"
-			Path asset = file (request.path)
-
-			if (asset.toFile().exists()) render asset else next()
-		}
+//		path ("datamesh/:page") {
+//			println "MATCH ANGULAR PAGE"
+//			Path asset = file (request.path)
+//
+//			if (asset.toFile().exists()) {
+//				render asset
+//			} else {
+//				asset = file ("${request.path}.html")
+//
+//				if (asset.toFile().exists()) {
+//					render asset
+//				} else {
+//					next()
+//				}
+//			}
+//		}
+//
+//		path ("datamesh/::.+") {
+//			println "MATCH PATH ${request.path}"
+//			Path asset = file (request.path)
+//
+//			if (asset.toFile().exists()) render asset else next()
+//		}
 
 		path ("::.+") {
 			println "MATCH ANYTHING ${request.path}"
@@ -77,15 +108,9 @@ ratpack
 		}
 
 		all {
-			response.status (404)
-			Path asset = file ("public/404.html")
+			println "DEFAULT: NOT FOUND ${request.path}"
 
-			if (asset.toFile().exists()) {
-				render asset
-			} else {
-				response.contentType ('text/plain')
-				response.send ('Oh dear, I don\'t seem to have one of those\n')
-			}
+			insert (get (NotFoundHandler))
 		}
 	}
 }

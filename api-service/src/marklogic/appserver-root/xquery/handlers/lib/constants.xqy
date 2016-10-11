@@ -44,7 +44,7 @@ declare variable $CT-XML := "application/xml";
 declare variable $CT-RECORD-XML := "application/vnd.overstory.record+xml";
 declare variable $CT-TYPE-XML := "application/vnd.overstory.type+xml";
 declare variable $CT-PREFIX-XML := "application/vnd.overstory.prefix+xml";
-declare variable $CT-ERROR-XML := "application/vnd.overstory.error+xml";
+declare variable $CT-ERROR-XML := "application/vnd.overstory.rest.errors+xml";
 
 declare variable $PREFIX-SPARQL := 'PREFIX ost: <http://rdf.overstory.co.uk/rdf/terms/> SELECT ?search WHERE { ?search a ost:Prefix }';
 declare variable $PREFIX-CURIE := 'ost:Prefix';
@@ -54,19 +54,19 @@ declare variable $ELEMENT-MAPPING-SPARQL-TEMPLATE := "SELECT ?elementName ?eleme
 
 declare variable $NS-FROM-PREFIX-SPARQL-TEMPLATE := "SELECT ?prefixUri WHERE { ?s a ost:Prefix . ?s ost:prefixName 'prefix-name' . ?s ost:prefixUri ?prefixUri }";
 
-declare variable $REQUIRED-PROPERTIES-FROM-RDF-TYPE-SPARQL-TEMPLATE := 
-"SELECT ?minOccurs ?maxOccurs ?propName ?propType WHERE 
-{ 
-	?s a ost:RecordDefinition . ?s ost:rdfType 'incoming-rdf-type' . 
-	?s ost:recordProperty ?ostProperties . 
-	OPTIONAL { ?ostProperties ost:minOccurs ?minOccurs  . ?ostProperties ost:maxOccurs ?maxOccurs } . 
-	?ostProperties ost:propertyDefinition ?propDefinition . 
-	?propDefinition ost:propertyName ?propName . 
+declare variable $REQUIRED-PROPERTIES-FROM-RDF-TYPE-SPARQL-TEMPLATE :=
+"SELECT ?minOccurs ?maxOccurs ?propName ?propType WHERE
+{
+	?s a ost:RecordDefinition . ?s ost:rdfType 'incoming-rdf-type' .
+	?s ost:recordProperty ?ostProperties .
+	OPTIONAL { ?ostProperties ost:minOccurs ?minOccurs  . ?ostProperties ost:maxOccurs ?maxOccurs } .
+	?ostProperties ost:propertyDefinition ?propDefinition .
+	?propDefinition ost:propertyName ?propName .
 	OPTIONAL { ?propDefinition ost:propertyType ?propType } . }";
-	
-declare variable $REQUIRED-ELEMENTS-FROM-RDF-TYPE-SPARQL-TEMPLATE := 
-"SELECT ?elementName ?elementNs ?elementType ?minOccurs ?maxOccurs ?propDef WHERE 
-{ 
+
+declare variable $REQUIRED-ELEMENTS-FROM-RDF-TYPE-SPARQL-TEMPLATE :=
+"SELECT ?elementName ?elementNs ?elementType ?minOccurs ?maxOccurs ?propDef WHERE
+{
   ?s a ost:RecordDefinition .
   ?s ost:rdfType 'incoming-rdf-type' .
   ?s ost:recordElement ?ostElement .
@@ -74,16 +74,16 @@ declare variable $REQUIRED-ELEMENTS-FROM-RDF-TYPE-SPARQL-TEMPLATE :=
   OPTIONAL { ?ostElement ost:minOccurs ?minOccurs } .
   ?ostElement ost:elementDefinition ?elementDefinition .
   ?elementDefinition ost:elementName ?elementName .
-  ?elementDefinition ost:elementNs ?elementNs . 
+  ?elementDefinition ost:elementNs ?elementNs .
   OPTIONAL { ?elementDefinition ost:elementType ?elementType } .
   OPTIONAL { ?elementDefinition ost:propertyDefinition ?propDef }
 }";
 
-declare variable $PREDEFINED-RDF-TYPES-SPARQL-TEMPLATE := 
-"SELECT ?rdfType WHERE 
+declare variable $PREDEFINED-RDF-TYPES-SPARQL-TEMPLATE :=
+"SELECT ?rdfType WHERE
 {
-	?s a ost:RecordDefinition . 
-	?s ost:rdfType 'incoming-rdf-type' . 
+	?s a ost:RecordDefinition .
+	?s ost:rdfType 'incoming-rdf-type' .
 	?s ost:predefinedTypes ?predefinedTypes .
 	?predefinedTypes ost:rdfType ?rdfType .
 }";
@@ -93,29 +93,29 @@ declare variable $PREDEFINED-PROPERTIES-SPARQL-TEMPLATE :=
 SELECT ?predefinedProp { ?s ost:rdfType 'incoming-rdf-type' . ?s ost:predefinedProperties ?predefinedProp }
 ";
 (:declare variable $PREDEFINED-PROPERTIES-SPARQL-TEMPLATE :=
-"SELECT ?predefinedProperties WHERE 
+"SELECT ?predefinedProperties WHERE
 {
-	?s a ost:RecordDefinition . 
-	?s ost:rdfType 'incoming-rdf-type' . 
+	?s a ost:RecordDefinition .
+	?s ost:rdfType 'incoming-rdf-type' .
 	?s ost:predefinedProperties ?predefinedProperties .
 }";:)
 
 declare variable $SCHEMA-VALIDATION-SPARQL-TEMPLATE :=
 "
-SELECT ?elementName ?elementNs WHERE 
-{ 
+SELECT ?elementName ?elementNs WHERE
+{
   ?s a ost:RecordDefinition .
   ?s ost:rdfType 'incoming-rdf-type' .
   ?s ost:recordElement ?ostElement .
   ?ostElement ost:validate 'true' .
   ?ostElement ost:elementDefinition ?elementDef .
   ?elementDef ost:elementName ?elementName .
-  ?elementDef ost:elementNs ?elementNs 
+  ?elementDef ost:elementNs ?elementNs
 }";
 
 declare variable $RECORD-DEFINITION-RECORD-URI-FOR-INCOMING-TYPE :=
 "
-SELECT ?uri WHERE 
+SELECT ?uri WHERE
 {
 	?s a ost:RecordDefinition .
 	?s ost:rdfType 'incoming-rdf-type' .

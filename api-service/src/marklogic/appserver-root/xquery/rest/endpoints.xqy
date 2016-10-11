@@ -8,117 +8,123 @@ declare namespace rest="http://marklogic.com/appservices/rest";
 
 (: ---------------------------------------------------------------------- :)
 
-declare private variable $endpoints as element(rest:options) :=
-	<options xmlns="http://marklogic.com/appservices/rest">
-		<!-- root -->
-		<request uri="^(/?)$" endpoint="/xquery/default.xqy" />
+declare private variable $endpoints as element(rest:options) := <options xmlns="http://marklogic.com/appservices/rest">
+	<!-- root -->
+	<request uri="^(/?)$" endpoint="/xquery/default.xqy" />
 
-        <!-- |||||||| -->
-		<!--    API   -->
-		<!-- |||||||| -->
+	<!-- Health Check -->
+	<request uri="^/health$" endpoint="/xquery/handlers/health/ping.xqy" user-params="allow">
+		<http method="GET"/>
+	</request>
 
-        <request uri="^/api(/)?$" endpoint="/xquery/handlers/api/GET-api.xqy" user-params="forbid">
-			<http method="GET"/>
-		</request>
 
-		<!-- |||||||| -->
-		<!-- SEARCHES -->
-		<!-- |||||||| -->
+	<!-- |||||||| -->
+	<!--    API   -->
+	<!-- |||||||| -->
 
-		<request uri="^/record/type/(.+)$" endpoint="/xquery/handlers/search/GET-record-search.xqy" user-params="allow">
-		     <uri-param name="type">$1</uri-param>
-			 <http method="GET"/>
-		</request>
+	<request uri="^/api(/)?$" endpoint="/xquery/handlers/api/GET-api.xqy" user-params="forbid">
+		<http method="GET"/>
+	</request>
 
-		<request uri="^/record(/)?$" endpoint="/xquery/handlers/search/GET-record-search.xqy" user-params="allow">
-			<http method="GET"/>
-		</request>
+	<!-- |||||||| -->
+	<!-- SEARCHES -->
+	<!-- |||||||| -->
 
-		<!-- |||||| -->
-		<!-- SPARQL -->
-		<!-- |||||| -->
+	<request uri="^/record/type/(.+)$" endpoint="/xquery/handlers/search/GET-record-search.xqy" user-params="allow">
+	     <uri-param name="type">$1</uri-param>
+		 <http method="GET"/>
+	</request>
 
-		<request uri="^/sparql/(.+)$" endpoint="/xquery/handlers/search/GET-sparql-search.xqy" user-params="allow">
-			<uri-param name="sparql">$1</uri-param>
-			<http method="GET"/>
-		</request>
+	<request uri="^/record(/)?$" endpoint="/xquery/handlers/search/GET-record-search.xqy" user-params="allow">
+		<http method="GET"/>
+	</request>
 
-		<request uri="^/sparql$" endpoint="/xquery/handlers/search/POST-sparql-query.xqy" user-params="allow">
-			<http method="POST"/>
-		</request>
+	<!-- |||||| -->
+	<!-- SPARQL -->
+	<!-- |||||| -->
 
-        <!-- ||||| -->
-        <!-- TYPES -->
-        <!-- ||||| -->
+	<request uri="^/sparql/(.+)$" endpoint="/xquery/handlers/search/GET-sparql-search.xqy" user-params="allow">
+		<uri-param name="sparql">$1</uri-param>
+		<http method="GET"/>
+	</request>
+
+	<request uri="^/sparql$" endpoint="/xquery/handlers/search/POST-sparql-query.xqy" user-params="allow">
+		<http method="POST"/>
+	</request>
+
+	<!-- ||||| -->
+	<!-- TYPES -->
+	<!-- ||||| -->
 
         <request uri="^/rdf/record/type$" endpoint="/xquery/handlers/type/GET-type.xqy" user-params="allow">
-			<http method="GET"/>
-		</request>
+		<http method="GET"/>
+	</request>
 
-		<!-- |||||||| -->
-		<!-- PREFIXES -->
-		<!-- |||||||| -->
+	<!-- |||||||| -->
+	<!-- PREFIXES -->
+	<!-- |||||||| -->
 
-		<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/GET-prefix.xqy" user-params="forbid">
-            <uri-param name="prefix">$1</uri-param>
-			<http method="GET"/>
-		</request>
+	<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/GET-prefix.xqy" user-params="forbid">
+		<uri-param name="prefix">$1</uri-param>
+		<http method="GET"/>
+		<http method="HEAD"/>
+	</request>
 
-		<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/PUT-prefix.xqy" user-params="forbid">
-            <uri-param name="prefix">$1</uri-param>
-			<http method="PUT"/>
-		</request>
+	<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/PUT-prefix.xqy" user-params="forbid">
+	<uri-param name="prefix">$1</uri-param>
+		<http method="PUT"/>
+	</request>
 
-		<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/DELETE-prefix.xqy" user-params="forbid">
-            <uri-param name="prefix">$1</uri-param>
-			<http method="DELETE"/>
-		</request>
+	<request uri="^/rdf/prefix/(.+)$" endpoint="/xquery/handlers/prefix/DELETE-prefix.xqy" user-params="forbid">
+	<uri-param name="prefix">$1</uri-param>
+		<http method="DELETE"/>
+	</request>
 
-		<request uri="^/rdf/prefix$" endpoint="/xquery/handlers/prefix/GET-prefix-list.xqy" user-params="allow">
-			<http method="GET"/>
-		</request>
+	<request uri="^/rdf/prefix$" endpoint="/xquery/handlers/prefix/GET-prefix-list.xqy" user-params="allow">
+		<http method="GET"/>
+	</request>
 
-		<!-- ||||||| -->
-		<!-- RECORDS -->
-		<!-- ||||||| -->
+	<!-- ||||||| -->
+	<!-- RECORDS -->
+	<!-- ||||||| -->
 
-		<request uri="^/record(/)?$" endpoint="/xquery/handlers/record/POST-record.xqy" user-params="forbid">
-			<uri-param name="uri">$1</uri-param>
-			<http method="POST"/>
-		</request>
+	<request uri="^/record(/)?$" endpoint="/xquery/handlers/record/POST-record.xqy" user-params="forbid">
+		<uri-param name="uri">$1</uri-param>
+		<http method="POST"/>
+	</request>
 
-		<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/GET-record.xqy" user-params="forbid">
-			<uri-param name="uri">$1</uri-param>
-			<http method="GET"/>
-		</request>
+	<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/GET-record.xqy" user-params="forbid">
+		<uri-param name="uri">$1</uri-param>
+		<http method="GET"/>
+	</request>
 
-		<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/PUT-record.xqy" user-params="allow">
-			<uri-param name="uri">$1</uri-param>
-			<http method="PUT"/>
-		</request>
+	<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/PUT-record.xqy" user-params="allow">
+		<uri-param name="uri">$1</uri-param>
+		<http method="PUT"/>
+	</request>
 
-		<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/DELETE-record.xqy" user-params="forbid">
-			<uri-param name="uri">$1</uri-param>
-			<http method="DELETE"/>
-		</request>
+	<request uri="^/record/id/(.+)$" endpoint="/xquery/handlers/record/DELETE-record.xqy" user-params="forbid">
+		<uri-param name="uri">$1</uri-param>
+		<http method="DELETE"/>
+	</request>
 
-		<!-- ||||||| -->
-		<!-- TRIPLES -->
-		<!-- ||||||| -->
+	<!-- ||||||| -->
+	<!-- TRIPLES -->
+	<!-- ||||||| -->
 
-		<request uri="^/rdf/triple$" endpoint="/xquery/handlers/triple/PUT-triple.xqy" user-params="allow">
-			<http method="PUT"/>
-		</request>
+	<request uri="^/rdf/triple$" endpoint="/xquery/handlers/triple/PUT-triple.xqy" user-params="allow">
+		<http method="PUT"/>
+	</request>
 
-		<request uri="^/rdf/triple$" endpoint="/xquery/handlers/triple/DELETE-triple.xqy" user-params="allow">
-			<http method="DELETE"/>
-		</request>
+	<request uri="^/rdf/triple$" endpoint="/xquery/handlers/triple/DELETE-triple.xqy" user-params="allow">
+		<http method="DELETE"/>
+	</request>
 
 
-		<!-- ================================================================= -->
+	<!-- ================================================================= -->
 
-		{ $rce:DEFAULT-ENDPOINTS }
-	</options>;
+	{ $rce:DEFAULT-ENDPOINTS }
+</options>;
 
 (: ---------------------------------------------------------------------- :)
 

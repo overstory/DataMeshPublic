@@ -34,8 +34,9 @@ class XmlRepositoryImpl implements XmlRepository
 		URI uri = repoProps.uriFor ("report/${reportName}")
 
 		httpClient.get (uri) {
+			it.basicAuth (repoProps.user, repoProps.password)
 			it.readTimeoutSeconds (repoProps.readTimeout)
-			it.headers.set("Accept", AppConstants.applicationAtomXml)
+			it.headers.set ("Accept", AppConstants.applicationAtomXml)
 		} map { response ->
 			new SimpleHttpResponse (response)
 		}

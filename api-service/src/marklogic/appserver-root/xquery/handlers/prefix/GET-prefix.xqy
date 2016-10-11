@@ -13,13 +13,17 @@ declare variable $prefix-uri := r:build-prefix-uri ($prefix);
 
 if (r:prefix-exists ($prefix-uri))
 then (
-    let $record as document-node()? := r:document-find-by-uri ($prefix-uri)
-    return (
-    	r:prepare-record-resource ($record),
-    	xdmp:set-response-code (200, "OK"),
-		xdmp:set-response-content-type ($const:CT-RECORD-XML),
-		xdmp:add-response-header ("ETag", r:etag-for-record ($record))
-    )
+	let $record as document-node()? := r:document-find-by-uri ($prefix-uri)
+	return (
+		xdmp:add-response-header ("ETag", r:etag-for-record ($record)),
+		xdmp:set-response-code (200, "OK"),
+		if (xdmp:get-request-method() = "HEAD")
+		then ()
+		else (
+			xdmp:set-response-content-type ($const:CT-RECORD-XML),
+			r:prepare-record-resource ($record)
+		)
+	)
 )
 else (
     xdmp:set-response-code (404, "Not Found"),

@@ -5,6 +5,7 @@ module namespace uris="urn:overstory:modules:data-mesh:handlers:lib:search";
 import module namespace r="urn:overstory:modules:data-mesh:handlers:lib:records" at "lib-records.xqy";
 import module namespace sem = "http://marklogic.com/semantics" at "/MarkLogic/semantics.xqy";
 import module namespace const="urn:overstory:modules:data-mesh:handlers:lib:constants" at "constants.xqy";
+import module namespace rconst="urn:overstory:rest:modules:constants" at "../../rest/lib-rest/constants.xqy";
 import module namespace p="com.blakeley.xqysp" at "xqysp.xqy";
 
 declare namespace e = "http://ns.overstory.co.uk/namespaces/error";
@@ -39,19 +40,24 @@ declare function build-sparql-search-response(
     (:$sparql-query as xs:string?,
     $cts-query as cts:query?,
     $collection as xs:string:)
-    $total-hits as xs:integer
-) as element(oss:result)
+    $total-hits as xs:integer,
+    $wants-atom as xs:boolean
+) as element()
 {
 	(:let $total-hits := if (starts-with(xdmp:version(), '8')) then total-hits-sparql ($sparql-query, $cts-query, $collection) else fn:count($results):)
     let $first := $search-criteria/oss:first
     let $page-size := $search-criteria/oss:ipp
     let $last := if ($total-hits = 0) then 1 else if (($first + $page-size) > $total-hits) then $total-hits else ($first + ($page-size - 1))
     return
+    if ($wants-atom)
+    then
+    	build-sparql-atom-response ($results, $search-criteria, $search-criteria/oss:request-url/fn:string())
+    else
         <oss:result first="{$first}" last="{$last}" page-size="{$page-size}" total-hits="{$total-hits}" request-url="{$search-criteria/oss:request-url}" xmlns:oss="http://ns.overstory.co.uk/namespaces/search">
         {
-        	$search-criteria,
-            for $value in $results
-            return <oss:uri>{$value}</oss:uri>
+		$search-criteria,
+		for $value in $results
+		return <oss:uri>{$value}</oss:uri>
         }
         </oss:result>
 };
@@ -93,17 +99,17 @@ declare function build-sparql-query (
         (: filter shouldn't be applied to refers-to as this will always return a subject i.e. record uri :)
         (: filter for referenced-by checks for a 1.0 SPARQL negation (proper negation have been implemented in SPARQL 1.1
         	Do not display rdf:type as a result if matched by SPARQL query :)
-        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . } 
+        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . }
 		FILTER ( isIri (?search) &amp;&amp; !BOUND(?rdftype) )' else (" FILTER ( isIri (?search) ) .")
-		
+
 		let $ipp := $search-criteria/oss:ipp/string()
 		let $first := $search-criteria/oss:first/string()
-		
-		let $pagination := 
-			if ($search-criteria/oss:page = "1") 
+
+		let $pagination :=
+			if ($search-criteria/oss:page = "1")
 			then fn:concat ( "LIMIT ", $ipp )
 			else fn:concat ( "OFFSET ", (xs:int ($first) - 1), " LIMIT ", $ipp )
-		
+
         let $sparql :=
             fn:concat ( fn:string-join (build-prefix-list (), " "), (" "), 'SELECT DISTINCT ?search WHERE { ', $refers-to, $referenced-by, $type, $filter, ' } ', $pagination )
 
@@ -145,10 +151,10 @@ declare function build-sparql-query-without-pagination (
         (: filter shouldn't be applied to refers-to as this will always return a subject i.e. record uri :)
         (: filter for referenced-by checks for a 1.0 SPARQL negation (proper negation have been implemented in SPARQL 1.1
         	Do not display rdf:type as a result if matched by SPARQL query :)
-        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . } 
+        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . }
 		FILTER ( isIri (?search) &amp;&amp; !BOUND(?rdftype) )' else (" FILTER ( isIri (?search) ) .")
-	
-		
+
+
         let $sparql :=
             fn:concat ( fn:string-join (build-prefix-list (), " "), (" "), 'SELECT DISTINCT ?search WHERE { ', $refers-to, $referenced-by, $type, $filter, ' } ' )
 
@@ -190,9 +196,9 @@ declare function build-sparql-query-for-total-hits (
         (: filter shouldn't be applied to refers-to as this will always return a subject i.e. record uri :)
         (: filter for referenced-by checks for a 1.0 SPARQL negation (proper negation have been implemented in SPARQL 1.1
         	Do not display rdf:type as a result if matched by SPARQL query :)
-        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . } 
+        let $filter := if ($referenced-by) then 'OPTIONAL { ' || build-sparql-value ($search-criteria/oss:referenced-by/string()) || ' rdf:type ?rdftype . FILTER (?search = ?rdftype) . }
 		FILTER ( isIri (?search) &amp;&amp; !BOUND(?rdftype) )' else (" FILTER ( isIri (?search) ) .")
-		
+
         let $sparql :=
             fn:concat ( fn:string-join (build-prefix-list (), " "), (" "), 'SELECT (COUNT(?search) AS ?count) WHERE { ', $refers-to, $referenced-by, $type, $filter, ' } ' )
 
@@ -206,11 +212,11 @@ declare function build-paginaition-predefined-sparql-query (
 	 $first as xs:integer?
 ) as xs:string
 {
-	let $pagination := 
-			if ($page = "1") 
+	let $pagination :=
+			if ($page = "1")
 			then fn:concat ( "LIMIT ", $ipp )
 			else fn:concat ( "OFFSET ", (xs:int ($first) - 1), " LIMIT ", $ipp )
-	return 
+	return
 		($sparql || ' ' || $pagination)
 };
 
@@ -224,12 +230,13 @@ declare function perform-search (
     $sparql-query as xs:string?,
     $cts-query as cts:query?,
     $search-criteria as element(oss:search-criteria),
-    $collection as xs:string
-) as element(oss:result)
+    $collection as xs:string,
+    $wants-atom as xs:boolean
+) as element()
 {
     if (fn:empty ($sparql-query))
-    then build-cts-search-response ($search-criteria, perform-cts-search ($search-criteria, $cts-query, $collection), total-hits-cts ($cts-query, $collection))
-    else build-sparql-search-response ($search-criteria, perform-mixed-search ($search-criteria, $sparql-query, $cts-query, $collection), (:$sparql-query, $cts-query, $collection:) total-hits-sparql ($sparql-query, $cts-query, $collection, $search-criteria))
+    then build-cts-search-response ($search-criteria, perform-cts-search ($search-criteria, $cts-query, $collection), total-hits-cts ($cts-query, $collection), $wants-atom)
+    else build-sparql-search-response ($search-criteria, perform-mixed-search ($search-criteria, $sparql-query, $cts-query, $collection), (:$sparql-query, $cts-query, $collection:) total-hits-sparql ($sparql-query, $cts-query, $collection, $search-criteria), $wants-atom)
 };
 
 (: SPARQL with cts-query :)
@@ -291,46 +298,51 @@ declare function total-hits-sparql (
 {
 	let $predefined-sparql := $search-criteria/oss:sparql/string()
 	return
-		if (starts-with(xdmp:version(), '8')) 
-		then 
+		if (starts-with(xdmp:version(), '8'))
+		then
 			if ($predefined-sparql)
-			then 
+			then
 				let $sparql-count-query := fn:replace ($predefined-sparql, 'SELECT DISTINCT \?search', 'SELECT (COUNT(?search) AS ?count)')
 				let $sparql-count-query := fn:replace ($sparql-count-query, 'SELECT \?search', 'SELECT (COUNT(?search) AS ?count)')
 				let $sparql-count-query := fn:replace ($sparql-count-query, 'OFFSET \d+', '')
 				let $sparql-count-query := fn:replace ($sparql-count-query, 'LIMIT \d+', '')
 				return map:get (sem:sparql ($sparql-count-query, (), (fn:concat ('default-graph=',$collection)), $cts-query, ()), 'count')
-			else 
+			else
 				let $sparql := build-sparql-query-for-total-hits ($search-criteria)
 				return map:get (sem:sparql ($sparql), 'count')
-		else 
-			if ($predefined-sparql) 
-			then 
+		else
+			if ($predefined-sparql)
+			then
 				let $predefined-sparql := fn:replace ($predefined-sparql, 'OFFSET \d+', '')
 				let $predefined-sparql := fn:replace ($predefined-sparql, 'LIMIT \d+', '')
 				return fn:count(sem:sparql($predefined-sparql))
-			else 
+			else
 				let $sparql := build-sparql-query-without-pagination ($search-criteria)
 				return fn:count(sem:sparql ($sparql))
 };
 (: Build cts:query response :)
 
-declare function build-cts-search-response(
+declare function build-cts-search-response (
     $search-criteria as element(oss:search-criteria),
     $results as document-node()*,
-    $total-hits as xs:integer
-) as element(oss:result)
+    $total-hits as xs:integer,
+    $wants-atom as xs:boolean
+) as element()
 {
     let $first := $search-criteria/oss:first
     let $page-size := $search-criteria/oss:ipp
     let $last := if ($total-hits = 0) then 1 else if (($first + $page-size) > $total-hits) then $total-hits else ($first + ($page-size - 1))
-    
+
     return
+    if ($wants-atom)
+    then
+    	build-cts-atom-response ($results, $search-criteria)
+    else
         <oss:result first="{$first}" last="{$last}" page-size="{$page-size}" total-hits="{$total-hits}" request-url="{$search-criteria/oss:request-url}" xmlns:oss="http://ns.overstory.co.uk/namespaces/search">
         {
-        	$search-criteria,
-            for $document in $results
-            return <oss:uri>{$document//osc:uri/fn:string()}</oss:uri>
+		$search-criteria,
+		for $document in $results
+		return <oss:uri>{$document//osc:uri/fn:string()}</oss:uri>
         }
         </oss:result>
 };
@@ -568,11 +580,12 @@ declare function validate-curie (
 (: atom response when SPARQL is used for search :)
 
 declare function build-sparql-atom-response (
-    $results as node(),
-    $search-criteria as element(oss:search-criteria)
+    $results as xs:string*,
+    $search-criteria as element(oss:search-criteria),
+    $uri-root as xs:string
 ) as element(atom:feed)
 {
-    let $total-hits := fn:count($results//sparql:result)
+    let $total-hits := fn:count($results)
     let $current-first-item := $search-criteria/oss:first-item
     let $current-page := $search-criteria/oss:page
     let $ipp := $search-criteria/oss:ipp
@@ -583,9 +596,9 @@ declare function build-sparql-atom-response (
 
     return
         <feed xmlns="http://www.w3.org/2005/Atom" xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content" xmlns:oss="http://ns.overstory.co.uk/namespaces/search">
-            <id>/record</id>
+            <id>{ $uri-root }</id>
             <title type="text">Search feed</title>
-            <link href="{$search-criteria/oss:request-url}" rel="self"/>
+            <link href="{$search-criteria/oss:request-url}" rel="self" type="{$rconst:MEDIA-TYPE-ATOM_XML}"/>
             {
                 build-prev-link($search-criteria),
                 build-next-link($search-criteria, $total-hits),
@@ -593,8 +606,16 @@ declare function build-sparql-atom-response (
             }
             <updated>{fn:current-dateTime()}</updated>
             {
-                for $value at $position in $results//sparql:result [$from to $to]
-                return (<entry>{$value}</entry>)
+                for $id in $results
+                let $doc := r:document-find-by-uri ($id)
+                return
+		<entry xmlns="http://www.w3.org/2005/Atom">
+		    <id>{ $id }</id>
+		    <link href="{$uri-root}/{$id}" rel="self" type="{$const:CT-RECORD-XML}"/>
+		    <content type="{$const:CT-RECORD-XML}">
+		    { r:prepare-record-resource (r:document-find-by-uri ($id)) }
+		    </content>
+		</entry>
             }
         </feed>
 };
@@ -651,7 +672,7 @@ declare function build-next-link (
     let $request-url := $search-criteria/oss:request-url/string()
     let $current-page := xs:int ($search-criteria/oss:page/string())
     let $ipp := xs:int ($search-criteria/oss:ipp/string())
-    let $current-first-item := xs:int ($search-criteria/oss:first-item/string())
+    let $current-first-item := if ($search-criteria/oss:first-item castable as xs:int) then xs:int ($search-criteria/oss:first-item) else 0
 
     let $new-page := ( if ($current-first-item = 0 and $total-hits > $current-page*$ipp ) then ( $current-page + 1 ) else ( 0 ) )
     let $new-first-item := ( if ($current-first-item != 0) then ( $current-first-item + $ipp ) else ( 0 ) )
@@ -677,7 +698,7 @@ declare function build-prev-link (
     let $request-url := $search-criteria/oss:request-url
     let $current-page := xs:int ($search-criteria/oss:page)
     let $ipp := xs:int ($search-criteria/oss:ipp)
-    let $current-first-item := xs:int ($search-criteria/oss:first-item)
+    let $current-first-item := if ($search-criteria/oss:first-item castable as xs:int) then xs:int ($search-criteria/oss:first-item) else 0
 
     let $new-page := ( if ($current-first-item = 0) then ( $current-page - 1 ) else ( 0 ) )
     let $new-first-item := ( if ($current-first-item != 0) then ( $current-first-item - $ipp ) else ( 0 ) )

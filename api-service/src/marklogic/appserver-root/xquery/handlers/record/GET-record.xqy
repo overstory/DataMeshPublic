@@ -14,16 +14,16 @@ declare variable $etag as xs:string := r:etag-for-record ($record);
 
 if (fn:exists($record))
 then (
-    xdmp:set-response-code (200, "OK"),
-    xdmp:set-response-content-type ("application/vnd.overstory.record+xml"),
-    xdmp:add-response-header ("ETag", $etag),
+	xdmp:set-response-code (200, "OK"),
+	xdmp:set-response-content-type ("application/vnd.overstory.record+xml"),
+	xdmp:add-response-header ("ETag", $etag),
 	r:prepare-record-resource ($record)
 ) else (
 	<e:errors>
-	    <e:not-found>
-	        <e:message>Resource not found</e:message>
-	        <e:uri>{$request-uri}</e:uri>
-	    </e:not-found>
+		<e:not-found>
+			<e:message>Resource not found</e:message>
+			<e:uri>{$request-uri}</e:uri>
+		</e:not-found>
 	</e:errors>,
-    xdmp:set-response-code (404, "Not Found")
+	xdmp:set-response-code (404, "Not Found")
 )

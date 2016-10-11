@@ -1,0 +1,33 @@
+<osc:record-definition xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+					   prefix="ost: http://rdf.overstory.co.uk/rdf/terms/" typeof="ost:RecordDefinition"
+					   about="urn:overstory.co.uk:id:record-definition:foaf:Person">
+
+	<osc:uri property="dc:identifier osc:uri"
+			>urn:overstory.co.uk:id:record-definition:foaf:Person</osc:uri>
+
+	<osc:rdf-type property="ost:rdfType" resource="foaf:Person">foaf:Person</osc:rdf-type>
+
+	<osc:required-properties rel="ost:requiredProperties">
+		<!-- test for minimum 1 surname -->
+		<osc:property property="foaf:surname">1,1</osc:property>
+		<!-- test for maximum 2 e-mails -->
+		<osc:property property="foaf:mbox">1,2</osc:property>
+		<!-- test for exactly 3 first names -->
+		<osc:property property="foaf:firstName">3</osc:property>
+	</osc:required-properties>
+
+	<osc:required-elements rel="ost:requiredElements">
+		<osc:element rel="ost:requiredElement">
+			<osc:element-name property="ost:elementQName">osc:test1</osc:element-name>
+			<osc:element-ns property="ost:elementNs">http://ns.overstory.co.uk/namespaces/datamesh/content</osc:element-ns>
+			<osc:element-cardinality property="ost:elementCardinality">2,3</osc:element-cardinality>
+		</osc:element>
+
+		<osc:element rel="ost:requiredElement">
+			<osc:element-name property="ost:elementQName">osc:test2</osc:element-name>
+			<osc:element-ns property="ost:elementNs">http://ns.overstory.co.uk/namespaces/datamesh/content</osc:element-ns>
+			<osc:element-cardinality property="ost:elementCardinality">1,1</osc:element-cardinality>
+		</osc:element>
+	</osc:required-elements>
+
+</osc:record-definition>

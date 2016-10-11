@@ -1,0 +1,10 @@
+<osc:prefix
+		xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content"
+		typeof="ost:Prefix ost:MetaRecord"
+		about="urn:overstory.co.uk:id:prefix:testprefix"
+		prefix="ost: http://rdf.overstory.co.uk/rdf/terms/ foaf: http://xmlns.com/foaf/0.1/ dc: http://purl.org/dc/terms/"
+		>
+	<osc:uri property="dc:identifier osc:uri">urn:overstory.co.uk:id:prefix:testprefix</osc:uri>
+	<osc:prefix-name property="ost:prefixName">testprefix</osc:prefix-name>
+	<osc:prefix-uri property="ost:prefixUri">http://testprefix.com/</osc:prefix-uri>
+</osc:prefix>

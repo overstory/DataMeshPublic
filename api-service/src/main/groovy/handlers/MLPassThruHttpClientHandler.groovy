@@ -28,12 +28,12 @@ class MLPassThruHttpClientHandler implements Handler
 	private static final List<String> PASSTHRU_RESPONSE_HEADERS = ['Content-type', 'Content-Length', 'ETag', 'Last-Modified', 'Location', 'Allow']
 	private static final String prefixToRemove = 'datamesh/'
 
-	private final RemoteServerProperties mlapi
+	private final RemoteServerProperties repoProps
 
 	@Inject
-	MLPassThruHttpClientHandler (@Named("XmlRepoConfig") RemoteServerProperties mlapi)
+	MLPassThruHttpClientHandler (@Named("XmlRepoConfig") RemoteServerProperties repoProps)
 	{
-		this.mlapi = mlapi
+		this.repoProps = repoProps
 
 		log.debug "Instantiated MLPassThruHttpClientHandler"
 	}
@@ -49,17 +49,18 @@ class MLPassThruHttpClientHandler implements Handler
 	void handlePassthru (Context context, TypedData requestBody)
 	{
 		HttpClient httpClient = context.get (HttpClient)
-		String verb = (context.request.method.isPatch() && mlapi.patchVerb) ? (mlapi.patchVerb) : context.request.method.name
+		String verb = (context.request.method.isPatch() && repoProps.patchVerb) ? (repoProps.patchVerb) : context.request.method.name
 		String path = context.request.path ?: ""
 		String query = context.request.query ?: ""
-		URI uri = mlapi.uriFor (path - prefixToRemove, query)
+		URI uri = repoProps.uriFor (path - prefixToRemove, query)
 		Headers headers = context.request.headers
-		int readTimeout = mlapi.readTimeout
+		int readTimeout = repoProps.readTimeout
 		long startTime = System.currentTimeMillis()
 
 //println "In handler: verb=${verb}, path=${path} ml-path=${mlapi.uriFor(path,query).toString()}"
 
 		httpClient.request (uri) {
+			it.basicAuth (repoProps.user, repoProps.password)
 			it.readTimeoutSeconds(readTimeout)
 			it.method (verb)
 			if (requestBody.buffer.readable || ( ! ['PUT', 'POST', 'PATCH'].contains (verb))) {
@@ -102,7 +103,7 @@ class MLPassThruHttpClientHandler implements Handler
 				}
 
 				// Hackery to work around AWS ELB inability to handle PATCH verb
-				if (context.request.method.isPatch() && mlapi.patchVerb) {
+				if (context.request.method.isPatch() && repoProps.patchVerb) {
 					it.set ("x-method-override", "PATCH")
 				}
 			}

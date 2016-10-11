@@ -2,7 +2,7 @@ xquery version "1.0-ml";
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>IoP Content Service</title>
+	<title>DataMesh</title>
 	<link rel="stylesheet" type="text/css" href="/css/std.css"/>
 </head>
 <body style="height: 95%;">

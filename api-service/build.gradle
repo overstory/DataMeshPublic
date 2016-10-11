@@ -25,6 +25,12 @@ dependencies {
 	compile 'net.sf.saxon:Saxon-HE:9.6.0-5'
 	compile 'org.apache.commons:commons-csv:1.4'
 
+	compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+	compile 'ch.qos.logback:logback-classic:1.0.13'
+	compile 'org.slf4j:slf4j-api:1.7.12'
+	compile 'org.slf4j:log4j-over-slf4j:1.7.12'
+	compile 'net.sf.saxon:Saxon-HE:9.6.0-5'
+
 
 	//compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
 	// SpringLoaded enables runtime hot reloading.
@@ -42,6 +48,7 @@ dependencies {
 	testCompile 'net.sf.saxon:Saxon-HE:9.6.0-7'
 	testCompile "org.apache.pdfbox:pdfbox:2.0.0"
 	testCompile "org.skyscreamer:jsonassert:1.2.3"
+	testCompile 'com.github.docker-java:docker-java:3.0.+'
 }
 
 

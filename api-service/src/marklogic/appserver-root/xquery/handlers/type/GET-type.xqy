@@ -14,7 +14,7 @@ declare variable $ipp := xdmp:get-request-field ("ipp", "10");
 declare variable $first-item := xdmp:get-request-field ("first-item", ());
 
 let $type-sparql := 'SELECT ?search WHERE { ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?search }'
-let $search-criteria := 
+let $search-criteria :=
     let $first := if ($first-item castable as xs:integer) then xs:integer($first-item) else ()
     let $first := ($first-item, (xs:integer($page) * xs:integer($ipp) - xs:integer($ipp) + 1))[1]
     let $last := xs:integer($first) + (xs:integer($ipp) - 1)
@@ -28,8 +28,8 @@ let $search-criteria :=
             <oss:first>{$first}</oss:first>
             <oss:last>{$last}</oss:last>
         </oss:search-criteria>
-    
-let $results (:as element(atom:feed):) := r:get-types($search-criteria)
+
+let $results (:as element(atom:feed):) := r:get-types ($search-criteria)
 return $results
 
 
@@ -37,7 +37,7 @@ return $results
 (:
 try {
     r:get-types($page, $ipp, $first-item)
-    } 
+    }
 catch($e) {
     xdmp:set-response-code (404, "Not Found")
     }:)
