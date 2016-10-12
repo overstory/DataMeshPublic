@@ -3,6 +3,7 @@ xquery version '1.0-ml';
 module namespace uris="urn:overstory:modules:data-mesh:handlers:lib:records";
 
 import module namespace const="urn:overstory:modules:data-mesh:handlers:lib:constants" at "constants.xqy";
+import module namespace rconst="urn:overstory:rest:modules:constants" at "../../rest/lib-rest/constants.xqy";
 import module namespace s="urn:overstory:modules:data-mesh:handlers:lib:semantic" at "semantic.xqy";
 import module namespace rdfa="urn:overstory:rdf:rdf-ttl" at "rdfa-ttl.xqy";
 import module namespace re="urn:overstory:rest:modules:rest:errors" at "../../rest/lib-rest/errors.xqy";
@@ -648,11 +649,12 @@ declare function delete-record (
 (: ---------------------------------------------------------- :)
 
 declare function get-types (
-    $search-criteria as element(oss:search-criteria)
+	$search-criteria as element(oss:search-criteria),
+	$wants-atom as xs:boolean
 ) (:as element(atom:feed)? :)
 {
     let $type-doc := type-list ($search-criteria/oss:type-sparql)
-    let $search-response := build-type-search-response ($type-doc, $search-criteria)
+    let $search-response := build-type-search-response ($type-doc, $search-criteria, $wants-atom)
     return $search-response
 };
 
@@ -683,14 +685,19 @@ declare function type-list (
 
 declare function build-type-search-response (
     $prefix-doc as node(),
-    $search-criteria as element(oss:search-criteria)
-) as element(oss:result)
+    $search-criteria as element(oss:search-criteria),
+    $wants-atom as xs:boolean
+) as element()
 {
     let $total-hits := fn:count ($prefix-doc//osc:type-entry)
     let $page-size := $search-criteria/oss:ipp
     let $first := $search-criteria/oss:first
     let $last := $search-criteria/oss:last
     return
+    if ($wants-atom)
+    then
+    	build-type-atom-response ($prefix-doc, $search-criteria)
+    else
         <oss:result first="{$first}" last="{$last}" page-size="{$page-size}" total-hits="{$total-hits}">
     	{
             for $entry in $prefix-doc//osc:type-entry [$first to $last]
@@ -1191,7 +1198,7 @@ declare function build-type-atom-response (
         <feed xmlns="http://www.w3.org/2005/Atom" xmlns:osc="http://ns.overstory.co.uk/namespaces/datamesh/content" xmlns:oss="http://ns.overstory.co.uk/namespaces/search">
             <id>/rdf/record/type</id>
             <title type="text">Search feed</title>
-            <link href="{$search-criteria/oss:request-url}" rel="self"/>
+            <link href="{$search-criteria/oss:request-url}" rel="self" type="{$rconst:MEDIA-TYPE-ATOM_XML}"/>
             {
                 search:build-prev-link($search-criteria),
                 search:build-next-link($search-criteria, $total-hits),
@@ -1203,7 +1210,7 @@ declare function build-type-atom-response (
                 return
                     <entry>
                         <id>{$value/osc:type-curie/string()}</id>
-                        <updated>get-some-sort-of-date?</updated>
+                        <updated>fn:current-dateTime()</updated>
                         {$value/*}
                     </entry>
             }

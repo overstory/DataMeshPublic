@@ -1,6 +1,7 @@
 xquery version '1.0-ml';
 
 import module namespace const="urn:overstory:modules:data-mesh:handlers:lib:constants" at "../lib/constants.xqy";
+import module namespace rconst="urn:overstory:rest:modules:constants" at "../../rest/lib-rest/constants.xqy";
 import module namespace r="urn:overstory:modules:data-mesh:handlers:lib:records" at "../lib/lib-records.xqy";
 
 declare namespace osc = "http://ns.overstory.co.uk/namespaces/datamesh/content";
@@ -12,6 +13,8 @@ declare option xdmp:output "indent=yes";
 declare variable $page := xdmp:get-request-field ("page", "1");
 declare variable $ipp := xdmp:get-request-field ("ipp", "10");
 declare variable $first-item := xdmp:get-request-field ("first-item", ());
+declare variable $content-type := xdmp:get-request-header ("accept", $rconst:MEDIA-TYPE-STANDARD-XML);
+declare variable $wants-atom := fn:contains ($content-type, $rconst:MEDIA-TYPE-ATOM_XML);
 
 let $type-sparql := 'SELECT ?search WHERE { ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?search }'
 let $search-criteria :=
@@ -29,8 +32,11 @@ let $search-criteria :=
             <oss:last>{$last}</oss:last>
         </oss:search-criteria>
 
-let $results (:as element(atom:feed):) := r:get-types ($search-criteria)
-return $results
+let $results := r:get-types ($search-criteria, $wants-atom)
+return (
+	if ($wants-atom) then xdmp:set-response-content-type ($rconst:MEDIA-TYPE-ATOM_XML) else xdmp:set-response-content-type ($rconst:MEDIA-TYPE-STANDARD-XML),
+	$results
+)
 
 
 
