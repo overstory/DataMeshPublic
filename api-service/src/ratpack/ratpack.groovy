@@ -69,10 +69,16 @@ ratpack
 		}
 
 		path ('record') {
+			println "MATCH SIMPLE RECORD"
 			insert (get (RecordListHandler))
 		}
-
+		path ('record/:which') {
+			insert (get (RecordListHandler))
+		}
 		path ('record/id/:id') {
+			insert (get (RecordHandler))
+		}
+		path ('record/type/:id') {
 			insert (get (RecordHandler))
 		}
 

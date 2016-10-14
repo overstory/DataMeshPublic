@@ -80,12 +80,22 @@ class AbstractRatPackTest extends AbstractTest
 			.header ("Accept", "application/vnd.overstory.record+xml")
 			.body (ns)
 			.contentType (textPlain)
-			.when ()
+		.when ()
 			.put ("/rdf/prefix/${prefix}")
-			.then ()
+		.then ()
 			.log ().ifStatusCodeMatches (not (isIn (OK, Created, Conflict)))
 			.statusCode (isIn (OK, Created, Conflict))
 
+	}
+
+	void loadPrefixesFromFile (String prefixesPath)
+	{
+//		String prefixesDoc = testDataAsStream (prefixesPath)
+
+		testDataAsStream (prefixesPath).eachLine {
+			String [] parts = it.split ('\\s')
+			insurePrefix (parts [0], parts [1])
+		}
 	}
 
 	static String getEtagForUri (String uri)
@@ -135,6 +145,5 @@ class AbstractRatPackTest extends AbstractTest
 				.log().ifStatusCodeMatches (not(isIn (Created, Conflict)))
 				.statusCode (isIn (Created, Conflict))
 		}
-
 	}
 }

@@ -26,7 +26,9 @@ class RecordListHandler implements Handler
 	void handle (Context context) throws Exception
 	{
 		context.byMethod {
-			context.insert (context.get (MLPassThruHttpClientHandler))
+			it.get {
+				context.insert (context.get (MLPassThruHttpClientHandler))
+			}
 		}
 	}
 }

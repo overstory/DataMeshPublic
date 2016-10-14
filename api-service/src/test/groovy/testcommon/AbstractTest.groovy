@@ -80,9 +80,14 @@ class AbstractTest
 		return XmlPathConfig.xmlPathConfig().declareNamespaces(namespaceMap)
 	}
 
+	protected InputStream testDataAsStream (String filename)
+	{
+		return getClass().classLoader.getResourceAsStream (filename)
+	}
+
 	protected InputStream testDataRecordAsStream (String filename)
 	{
-		return getClass().classLoader.getResourceAsStream ("test-records${File.separator}${filename}")
+		return testDataAsStream ("test-records${File.separator}${filename}")
 	}
 
 	protected File testDataRecordAsFile (String filename)
